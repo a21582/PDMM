@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Exercicio 01</string>
+    <string name="main_title">Registo</string>
+    <string name="main_email">Email</string>
+    <string name="main_password">Senha</string>
+    <string name="main_btn_login">Aceder</string>
+    <string name="login_btn_close">Fechar</string>
+    <string name="main_dark_theme">Escuro</string>
+</resources>
