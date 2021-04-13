@@ -12,10 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
         val email = this.findViewById<EditText>(R.id.editTextTextEmailAddress)
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -36,4 +33,10 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra("email", email.text.toString())
         startActivityForResult(intent, 1)
     }
+
+    fun List_fun(view: View) {
+        val intent = Intent(this@MainActivity, ListActivity::class.java )
+        startActivity(intent)
+    }
+
 }
