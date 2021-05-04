@@ -39,4 +39,8 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    fun ComplexList_fun(view: View) {
+        val intent = Intent(this@MainActivity, ComplexList_Activity::class.java )
+        startActivity(intent)
+    }
 }
