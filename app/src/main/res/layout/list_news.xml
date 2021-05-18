@@ -29,11 +29,19 @@
     <TextView
         android:id="@+id/news_description"
         android:layout_width="220dp"
-        android:layout_height="98dp"
+        android:layout_height="105dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="20dp"
         android:maxLines="3"
         app:layout_constraintStart_toEndOf="@+id/news_photo"
         app:layout_constraintTop_toBottomOf="@+id/news_title" />
+
+    <Button
+        android:id="@+id/news_details"
+        android:layout_width="98dp"
+        android:layout_height="42dp"
+        android:text="Button"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="136dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
