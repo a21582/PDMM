@@ -1,5 +1,6 @@
 package com.ipca.formulaworld
 
+import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_home, R.id.navigation_categories, R.id.navigation_store, R.id.navigation_bets, R.id.navigation_more))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val intent = Intent(this@MainActivity, SignInActivity::class.java)
+        startActivity(intent)
     }
-
-
 }
