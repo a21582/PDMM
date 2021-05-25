@@ -35,6 +35,7 @@ class MoreFragment : Fragment() {
 //        val recyclerView = view.findViewById<RecyclerView>(R.id.main_recyclerview)
 
         val listView = view.findViewById<ListView>(R.id.more_listview)
+        listView.divider = null;
 
         val options = mutableListOf<MenuOption>(
                 MenuOption("Estatísticas", R.drawable.ic_statistics),
