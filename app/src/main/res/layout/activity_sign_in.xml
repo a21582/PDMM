@@ -56,20 +56,15 @@
             app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
             android:textSize="18dp"/>
 
-        <Button
+        <com.google.android.gms.common.SignInButton
             android:id="@+id/google_login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/orbitron_medium"
-            android:onClick="googleSignIn"
-            android:text="Sign in with Google"
-            android:textAllCaps="false"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/submitButton"
-            android:textSize="14dp"/>
+            android:layout_marginTop="20dp"
+            />
 
         <Button
             android:id="@+id/registerLink"
