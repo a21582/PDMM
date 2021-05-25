@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        val intent = Intent(this@MainActivity, SignInActivity::class.java)
-        startActivity(intent)
+        // Google Sign In Tests
+//        val intent = Intent(this@MainActivity, SignInActivity::class.java)
+//        startActivity(intent)
     }
 }

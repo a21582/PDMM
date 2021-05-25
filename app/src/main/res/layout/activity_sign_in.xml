@@ -17,21 +17,23 @@
             android:layout_marginTop="80dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_cup"/>
 
         <EditText
             android:id="@+id/emailEditText"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/maven_pro_medium"
             android:hint="E-mail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            android:layout_marginTop="50dp"/>
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <EditText
             android:id="@+id/passwordEditText"
-            android:layout_width="200dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Password"
@@ -44,18 +46,22 @@
             android:layout_width="200dp"
             android:layout_height="60dp"
             android:layout_marginTop="24dp"
+            android:backgroundTint="@color/light_blue"
+            android:fontFamily="@font/orbitron_bold"
             android:onClick="signIn"
             android:text="@string/sign_in"
-            android:backgroundTint="@color/light_blue"
             android:textColor="@color/dark_blue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
+            android:textSize="18dp"/>
 
         <Button
             android:id="@+id/google_login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/orbitron_medium"
             android:onClick="googleSignIn"
             android:text="Sign in with Google"
             android:textAllCaps="false"
@@ -63,21 +69,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/submitButton"
-            android:layout_marginTop="20dp"/>
+            android:textSize="14dp"/>
 
         <Button
             android:id="@+id/registerLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/orbitron_bold"
             android:onClick="register"
             android:text="@string/sign_in"
-            app:layout_constraintTop_toBottomOf="@+id/google_login_btn"
+            android:textColor="@color/grey"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@android:color/transparent"
-            android:textColor="@color/grey"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/google_login_btn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
