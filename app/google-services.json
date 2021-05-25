@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "984946728145",
+    "project_id": "formulaworld-b3217",
+    "storage_bucket": "formulaworld-b3217.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984946728145:android:f52b1721fa0bd0b01779f0",
+        "android_client_info": {
+          "package_name": "com.ipca.formulaworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "984946728145-v4nnv5jgbbt96niofs2apc4kq0j2hlt1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRdFpMwUhgFxGunteveslEVl9yD6qeAYk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984946728145-v4nnv5jgbbt96niofs2apc4kq0j2hlt1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
