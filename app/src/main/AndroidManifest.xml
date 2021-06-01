@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FormulaWorld">
-        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".SignInActivity" />
         <activity
             android:name=".MapActivity"
             android:label="@string/title_activity_map"
-            android:theme="@style/Theme.FormulaWorld.NoActionBar"></activity>
+            android:theme="@style/Theme.FormulaWorld.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -30,6 +31,11 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
