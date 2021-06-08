@@ -29,5 +29,6 @@
     <string name="update">Atualizar</string>
     <string name="vat">NIF</string>
     <string name="phone">Telemóvel</string>
+    <string name="bets_fragment">Bets fragment</string>
 
 </resources>
