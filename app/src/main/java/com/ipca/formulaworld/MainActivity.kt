@@ -110,8 +110,6 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }
         }, 2000)
-
-        val button = findViewById<Button>(R.id.test_button)
     }
 
     fun test(view: View) {
