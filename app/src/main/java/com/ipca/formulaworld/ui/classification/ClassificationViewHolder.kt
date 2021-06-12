@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.ipca.formulaworld.R
 import de.hdodenhof.circleimageview.CircleImageView
+//import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
 class ClassificationViewHolder (inflater: LayoutInflater, val parent: ViewGroup) :

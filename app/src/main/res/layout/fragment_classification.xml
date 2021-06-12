@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.classification.ClassificationFragment">
+    tools:context=".ui.classification.ClassificationFragment"
+    android:background="@color/alice_blue"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/classification_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="70dp" >
+
+        <Button
+            android:id="@+id/classification_pilots_button"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:drawable="@drawable/edge_corners"
+            android:backgroundTint="@color/tab_button_background_color"
+            android:textColor="@color/tab_button_text_color" />
+        <Button
+            android:id="@+id/classification_teams_button"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:drawable="@drawable/tab_button"
+            android:backgroundTint="@color/tab_button_background_color"
+            android:textColor="@color/tab_button_text_color" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/classification_RecycleView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</FrameLayout>
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

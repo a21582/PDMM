@@ -3,21 +3,23 @@ package com.ipca.formulaworld.ui.categories
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ipca.formulaworld.MenuOption
 import com.ipca.formulaworld.model.pilot
 import com.ipca.formulaworld.ui.classification.ClassificationArrayAdapter
 import com.ipca.formulaworld.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.ipca.formulaworld.ui.classification.ClassificationFragment
+import com.ipca.formulaworld.ui.home.HomeFragment
+import com.ipca.formulaworld.ui.more.MoreArrayAdapter
 
 /**
  * A simple [Fragment] subclass.
@@ -39,7 +41,7 @@ class CategoriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 //        val recyclerView = view.findViewById<RecyclerView>(R.id.main_recyclerview)
-        val imgVerstappen = context?.resources?.getDrawable(R.drawable.verstappen)
+        /*val imgVerstappen = context?.resources?.getDrawable(R.drawable.verstappen)
         val imgHamilton = context?.resources?.getDrawable(R.drawable.hamilton)
         val recyclerView = view.findViewById<RecyclerView>(R.id.categories_RecycleView)
         recyclerView.adapter = ClassificationArrayAdapter(mutableListOf<pilot>(
@@ -48,10 +50,48 @@ class CategoriesFragment : Fragment() {
         //recyclerView.layoutManager = LinearLayoutManager(this) ///storage/emulated/0/Pictures/IMG_20210521_000128.jpg
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.layoutManager = linearLayoutManager*/
 
 //        recyclerView.adapter = MoreAdapterRec(listOf(MenuOption("Teste1", android.R.drawable.star_on)))
 //        recyclerView.layoutManager = LinearLayoutManager(view.context)
+
+        val listView = view.findViewById<ListView>(R.id.categories_listview)
+        listView.divider = null;
+
+        val options = mutableListOf<MenuOption>(
+            MenuOption("Classificação", R.drawable.ic_statistics),
+            MenuOption("Carros", R.drawable.ic_racing_car),
+            MenuOption("Pilotos", R.drawable.ic_helmet),
+            MenuOption("Equipas", R.drawable.ic_group),
+            MenuOption("Calendário", R.drawable.ic_calendar),
+        )
+        val adapter = CategoriesArrayAdapter(view.context, options)
+        listView.adapter = adapter
+
+        listView.setOnItemClickListener { parent, view, position, id ->
+            Log.d("Teste", "Click")
+            adapter.getItem(0)
+
+            when(position) {
+                0 -> {
+                    val ft: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
+                    ft?.replace(R.id.fragment_placeholder, ClassificationFragment())
+                    ft?.commit()
+                }
+                1 -> {
+                    Log.d("Teste", "Pos 1")
+                }
+                2 -> {
+                    Log.d("Teste", "Pos 0")
+                }
+                3 -> {
+                    Log.d("Teste", "Pos 1")
+                }
+                4 -> {
+                    Log.d("Teste", "Pos 0")
+                }
+            }
+        }
     }
 
 
