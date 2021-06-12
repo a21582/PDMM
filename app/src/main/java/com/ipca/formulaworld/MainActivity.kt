@@ -33,43 +33,40 @@ class MainActivity : AppCompatActivity() {
 
         val user = auth.currentUser
 
-//        openHomeFragment()
-//
-//        openCategoriesFragment()
+        openHomeFragment()
 
-        Handler().postDelayed({
-            if (user != null) {
-                navigationView = findViewById(R.id.nav_view)
-                navigationView.setOnNavigationItemSelectedListener { item ->
-                    when(item.itemId) {
-                        R.id.navigation_home -> {
-                            openHomeFragment()
-                            true
-                        }
-                        R.id.navigation_categories -> {
-                            openCategoriesFragment()
-                            true
-                        }
-                        R.id.navigation_store -> {
-                            openStoreFragment()
-                            true
-                        }
-                        R.id.navigation_bets -> {
-                            openBetsFragment()
-                            true
-                        }
-                        R.id.navigation_more -> {
-                            openMoreFragment()
-                            true
-                        }
-                        else -> super.onOptionsItemSelected(item)
+        if (user != null) {
+            navigationView = findViewById(R.id.nav_view)
+            navigationView.setOnNavigationItemSelectedListener { item ->
+                when(item.itemId) {
+                    R.id.navigation_home -> {
+                        openHomeFragment()
+                        true
                     }
+                    R.id.navigation_categories -> {
+                        openCategoriesFragment()
+                        true
+                    }
+                    R.id.navigation_store -> {
+                        openStoreFragment()
+                        true
+                    }
+                    R.id.navigation_bets -> {
+                        openBetsFragment()
+                        true
+                    }
+                    R.id.navigation_more -> {
+                        openMoreFragment()
+                        true
+                    }
+                    else -> super.onOptionsItemSelected(item)
                 }
+            }
 
 //                val navController = findNavController(R.id.nav_host_fragment)
 
-                // Passing each menu ID as a set of Ids because each
-                // menu should be considered as top level destinations.
+            // Passing each menu ID as a set of Ids because each
+            // menu should be considered as top level destinations.
 //                val appBarConfiguration = AppBarConfiguration(setOf(
 //                    R.id.navigation_home, R.id.navigation_categories, R.id.navigation_store, R.id.navigation_bets, R.id.navigation_more))
 //
@@ -103,48 +100,41 @@ class MainActivity : AppCompatActivity() {
 //                    startActivity(intent)
 //                    finish()
 //                }
-            } else {
+        } else {
+            Handler().postDelayed({
                 // Google Sign In Tests
                 val intent = Intent(this@MainActivity, SignInActivity::class.java)
                 startActivity(intent)
                 finish()
-            }
-        }, 2000)
+            }, 2000)
+        }
     }
 
-    fun test(view: View) {
-        var fragment: Fragment = BetsFragment()
-        Log.d("StoreFragment", "Teste click")
-//        val transaction = supportFragmentManager.beginTransaction()
-//        transaction.replace(R.id.nav_host_fragment, fragment)
-//        transaction.commit()
-    }
-
-    fun openHomeFragment() {
+    private fun openHomeFragment() {
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.fragment_placeholder, HomeFragment())
         ft.commit()
     }
 
-    fun openCategoriesFragment() {
+    private fun openCategoriesFragment() {
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.fragment_placeholder, CategoriesFragment())
         ft.commit()
     }
 
-    fun openStoreFragment() {
+    private fun openStoreFragment() {
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.fragment_placeholder, StoreFragment())
         ft.commit()
     }
 
-    fun openBetsFragment() {
+    private fun openBetsFragment() {
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.fragment_placeholder, BetsFragment())
         ft.commit()
     }
 
-    fun openMoreFragment() {
+    private fun openMoreFragment() {
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.fragment_placeholder, MoreFragment())
         ft.commit()
