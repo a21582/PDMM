@@ -10,6 +10,12 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -32,6 +38,8 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         val user = auth.currentUser
+
+        user?.email?.let { Log.d("User", it) }
 
         openHomeFragment()
 
@@ -62,44 +70,6 @@ class MainActivity : AppCompatActivity() {
                     else -> super.onOptionsItemSelected(item)
                 }
             }
-
-//                val navController = findNavController(R.id.nav_host_fragment)
-
-            // Passing each menu ID as a set of Ids because each
-            // menu should be considered as top level destinations.
-//                val appBarConfiguration = AppBarConfiguration(setOf(
-//                    R.id.navigation_home, R.id.navigation_categories, R.id.navigation_store, R.id.navigation_bets, R.id.navigation_more))
-//
-//                setupActionBarWithNavController(navController, appBarConfiguration)
-//                navView.setupWithNavController(navController)
-
-//                val signOutButton = findViewById<Button>(R.id.google_logout_btn)
-//
-//                signOutButton.setOnClickListener {
-//                    // Sign out from GoogleSignInClient, so the user can sign in with a different Google account
-//                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                        .requestIdToken(this.getString(R.string.default_web_client_id))
-//                        .requestEmail()
-//                        .build()
-//
-//                    val googleSignInClient = GoogleSignIn.getClient(this, gso)
-//
-//                    googleSignInClient.signOut()
-//
-//                    val intent = Intent(this, SignInActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-//                }
-//
-//                val profileButton = findViewById<Button>(R.id.profile_button)
-//
-//                profileButton.setOnClickListener {
-//                    // Open user profile's page
-//
-//                    val intent = Intent(this@MainActivity, ProfileActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-//                }
         } else {
             Handler().postDelayed({
                 // Google Sign In Tests
