@@ -30,5 +30,7 @@
     <string name="vat">NIF</string>
     <string name="phone">Telemóvel</string>
     <string name="bets_fragment">Bets fragment</string>
+    <string name="pilots">Pilotos</string>
+    <string name="teams">Equipas</string>
 
 </resources>
