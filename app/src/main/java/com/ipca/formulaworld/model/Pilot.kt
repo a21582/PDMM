@@ -9,8 +9,7 @@ import java.util.*
 
 @Entity(tableName = "pilot_table")
 data class Pilot(
-    //@PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "id") val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "photo") val photo: Drawable,
     @ColumnInfo(name = "classification") val classification: Int,
