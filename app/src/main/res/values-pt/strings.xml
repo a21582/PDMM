@@ -3,4 +3,7 @@
     <string name="app_name">FormulaWorld</string>
     <string name="e_mail">E-mail</string>
     <string name="password">Password</string>
+    <string name="news_image">Imagem Noticias</string>
+    <string name="news_button">...</string>
+    <string name="abstract_lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut adipiscing amet...</string>
 </resources>

@@ -1,47 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="132dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:layout_editor_absoluteX="1dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="5dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
 
-    <ImageView
-        android:id="@+id/news_photo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="28dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.24" />
+    <RelativeLayout
+        android:padding="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:alpha="0.8">
 
-    <TextView
-        android:id="@+id/news_title"
-        android:layout_width="219dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="24dp"
-        android:maxLines="1"
-        app:layout_constraintStart_toEndOf="@+id/news_photo"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:contentDescription="@string/news_image"
+            android:id="@+id/news_photo"
+            android:layout_width="104dp"
+            android:layout_height="104dp"
+            android:layout_marginEnd="16dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"/>
 
-    <TextView
-        android:id="@+id/news_description"
-        android:layout_width="220dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:maxLines="3"
-        app:layout_constraintStart_toEndOf="@+id/news_photo"
-        app:layout_constraintTop_toBottomOf="@+id/news_title" />
+        <TextView
+            android:id="@+id/news_abstract"
+            android:layout_toEndOf="@id/news_photo"
+            android:layout_alignParentTop="true"
+            android:textSize="18sp"
+            android:text="@string/abstract_lorem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    <Button
-        android:id="@+id/news_details"
-        android:layout_width="98dp"
-        android:layout_height="42dp"
-        android:text="Button"
-        tools:layout_editor_absoluteX="28dp"
-        tools:layout_editor_absoluteY="136dp" />
+        <Button
+            android:id="@+id/news_details"
+            android:layout_width="98dp"
+            android:layout_height="36dp"
+            android:text="@string/news_button"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

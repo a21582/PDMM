@@ -30,5 +30,8 @@
     <string name="vat">NIF</string>
     <string name="phone">Telemóvel</string>
     <string name="bets_fragment">Bets fragment</string>
+    <string name="news_image">News Image</string>
+    <string name="news_button">. . .</string>
+    <string name="abstract_lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut adipiscing amet...</string>
 
 </resources>
