@@ -9,7 +9,7 @@ import com.ipca.formulaworld.model.Pilot
 
 @Database(entities = arrayOf(Pilot::class), version = 1)
 abstract class MyDatabase: RoomDatabase() {
-    abstract fun commentDao(): PilotDao
+    abstract fun pilotDao(): PilotDao
     companion object {
         @Volatile private var instance: MyDatabase? = null
         private val LOCK = Any()

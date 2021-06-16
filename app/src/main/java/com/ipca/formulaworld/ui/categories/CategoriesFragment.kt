@@ -11,15 +11,9 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentTransaction
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.ipca.formulaworld.MenuOption
-import com.ipca.formulaworld.model.pilot
-import com.ipca.formulaworld.ui.classification.ClassificationArrayAdapter
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.ui.classification.ClassificationFragment
-import com.ipca.formulaworld.ui.home.HomeFragment
-import com.ipca.formulaworld.ui.more.MoreArrayAdapter
 
 /**
  * A simple [Fragment] subclass.
@@ -39,21 +33,6 @@ class CategoriesFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        val recyclerView = view.findViewById<RecyclerView>(R.id.main_recyclerview)
-        /*val imgVerstappen = context?.resources?.getDrawable(R.drawable.verstappen)
-        val imgHamilton = context?.resources?.getDrawable(R.drawable.hamilton)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.categories_RecycleView)
-        recyclerView.adapter = ClassificationArrayAdapter(mutableListOf<pilot>(
-            pilot("Verstappen",imgVerstappen!!,1,1999),
-            pilot("Hamilton",imgHamilton!!,2,1999)))
-        //recyclerView.layoutManager = LinearLayoutManager(this) ///storage/emulated/0/Pictures/IMG_20210521_000128.jpg
-        val linearLayoutManager = LinearLayoutManager(context)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        recyclerView.layoutManager = linearLayoutManager*/
-
-//        recyclerView.adapter = MoreAdapterRec(listOf(MenuOption("Teste1", android.R.drawable.star_on)))
-//        recyclerView.layoutManager = LinearLayoutManager(view.context)
 
         val listView = view.findViewById<ListView>(R.id.categories_listview)
         listView.divider = null;

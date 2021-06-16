@@ -34,6 +34,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Firestore
+
+        val firestoreSetup = FirestoreSetup();
+        firestoreSetup.setup(db)
+
         auth = Firebase.auth
 
         val user = auth.currentUser

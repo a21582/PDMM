@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FormulaWorld">
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".SignInActivity" />
         <activity
             android:name=".MapActivity"
@@ -37,7 +37,5 @@
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
