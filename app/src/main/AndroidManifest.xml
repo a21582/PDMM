@@ -29,7 +29,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC6cTnJ3LAmIa6wPl6gN14v81yZiNQNchM" />
+            android:value="AIzaSyCi_UDwOtx-fuLYuMGkuyjUZykxTWCWm34" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -38,6 +38,6 @@
             android:value="@string/facebook_app_id"/>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+
 
 </manifest>
