@@ -10,22 +10,22 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ipca.formulaworld.R
-import com.ipca.formulaworld.model.Pilot
+import com.ipca.formulaworld.model.Team
 import de.hdodenhof.circleimageview.CircleImageView
 import java.io.File
 
 
-class ClassificationArrayAdapter(val mList: MutableList<Pilot>) : RecyclerView.Adapter<ClassificationViewHolder>()  {
+class ClassificationTeamsArrayAdapter(val mList: MutableList<Team>) : RecyclerView.Adapter<ClassificationViewHolder>()  {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassificationViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ClassificationViewHolder(inflater, parent)
     }
 
      override fun onBindViewHolder(holder: ClassificationViewHolder, position: Int) {
-         var pilotName = mList[position].name
-         var pilotImage = mList[position].image
+         var teamName = mList[position].name
+         var teamImage = mList[position].image
 
-        holder.bindData(pilotName, pilotImage)
+        holder.bindData(teamName, teamImage)
     }
      override fun getItemCount(): Int {
         return mList.size

@@ -11,7 +11,8 @@
     <LinearLayout
         android:id="@+id/classification_buttons"
         android:layout_width="match_parent"
-        android:layout_height="70dp" >
+        android:layout_height="70dp"
+        android:layout_marginBottom="15dp">
 
         <Button
             android:id="@+id/classification_pilots_button"
@@ -32,10 +33,24 @@
 
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/classification_pilots_list"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"/>
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/classification_pilots_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="15dp"
+            android:visibility="invisible"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/classification_teams_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="15dp"
+            android:visibility="invisible"/>
+    </RelativeLayout>
+
 
 </LinearLayout>
