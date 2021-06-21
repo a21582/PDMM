@@ -41,11 +41,14 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        val user = auth.currentUser
-
-        user?.email?.let { Log.d("User", it) }
-
         openHomeFragment()
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // Check if the user is signed in
+        val user = auth.currentUser
 
         if (user != null) {
             navigationView = findViewById(R.id.nav_view)

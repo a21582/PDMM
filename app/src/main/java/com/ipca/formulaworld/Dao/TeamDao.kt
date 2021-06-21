@@ -7,6 +7,8 @@ import com.ipca.formulaworld.model.Team
 interface TeamDao {
     @Query("SELECT * FROM team_table")
     fun getAll(): List<Team>
+    @Query("SELECT * FROM team_table ORDER BY classification")
+    fun getAllOrderByClassification(): List<Team>
     @Query("SELECT * FROM team_table WHERE id = :id")
     fun findById(id: Int): Team
     @Query("SELECT * FROM team_table WHERE object_id = :id")

@@ -84,7 +84,7 @@ class ClassificationFragment : Fragment() {
         GlobalScope.launch {
             // Update pilots list
             val pilotsValues = mutableListOf<Pilot>()
-            val pilots = db?.pilotDao()?.getAll()
+            val pilots = db?.pilotDao()?.getAllOrderByClassification()
             pilots?.forEach {
                 Log.d("Pilot", it.name)
                 val url = URL(it.photo)
@@ -97,7 +97,7 @@ class ClassificationFragment : Fragment() {
 
             // Update teams list
             val teamsValues = mutableListOf<Team>()
-            val teams = db?.teamDao()?.getAll()
+            val teams = db?.teamDao()?.getAllOrderByClassification()
             teams?.forEach {
                 Log.d("Team", it.name)
                 val photo = it.photo
@@ -124,7 +124,7 @@ class ClassificationFragment : Fragment() {
         pilotsButton = view.findViewById<Button>(R.id.classification_pilots_button)
         teamsButton = view.findViewById<Button>(R.id.classification_teams_button)
 
-        showTeamsList()
+        showPilotsList()
 
         pilotsButton.setOnClickListener {
             if(!pilotsButton.isSelected) {

@@ -22,7 +22,15 @@ class FirestoreSetup {
                     for (document in result) {
                         val checkPilot = db.pilotDao().findByObjectId(document.id)
                         if(checkPilot != null) {
-                            // Update
+                            // Update data
+                            db.pilotDao().updatePilot(Pilot(
+                                checkPilot.id,
+                                document.id,
+                                document.data["name"].toString(),
+                                document.data["photo"].toString(),
+                                document.data["classification"].toString(),
+                                document.data["year"].toString(),
+                            ))
                         } else {
                             db.pilotDao().insertAll(
                                 Pilot(
@@ -50,7 +58,15 @@ class FirestoreSetup {
                         Log.d("TeamId", document.id)
                         val checkTeam = db.teamDao().findByObjectId(document.id)
                         if(checkTeam != null) {
-                            // Update
+                            // Update data
+                            db.teamDao().updateTeam(Team(
+                                checkTeam.id,
+                                document.id,
+                                document.data["name"].toString(),
+                                document.data["photo"].toString(),
+                                document.data["classification"].toString(),
+                                document.data["year"].toString(),
+                            ))
                         } else {
                             db.teamDao().insertAll(
                                 Team(
