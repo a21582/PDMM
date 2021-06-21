@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.ipca.formulaworld.database.MyDatabase
-import com.ipca.formulaworld.ui.bets.BetsFragment
+import com.ipca.formulaworld.ui.bets.BetsCompetitionFragment
 import com.ipca.formulaworld.ui.categories.CategoriesFragment
 import com.ipca.formulaworld.ui.home.HomeFragment
 import com.ipca.formulaworld.ui.more.MoreFragment
@@ -39,11 +39,13 @@ class MainActivity : AppCompatActivity() {
         val firestoreSetup = FirestoreSetup();
         firestoreSetup.setup(db)
 
+
         auth = Firebase.auth
 
         val user = auth.currentUser
 
         user?.email?.let { Log.d("User", it) }
+
 
         openHomeFragment()
 
@@ -82,6 +84,8 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }, 2000)
         }
+
+
     }
 
     private fun openHomeFragment() {
@@ -104,7 +108,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun openBetsFragment() {
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, BetsFragment())
+        ft.replace(R.id.fragment_placeholder, BetsCompetitionFragment())
         ft.commit()
     }
 
