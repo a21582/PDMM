@@ -32,5 +32,6 @@
     <string name="bets_fragment">Bets fragment</string>
     <string name="pilots">Pilotos</string>
     <string name="teams">Equipas</string>
+    <string name="create_new_account">Create new account</string>
 
 </resources>
