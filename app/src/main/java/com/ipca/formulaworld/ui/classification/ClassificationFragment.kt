@@ -10,16 +10,15 @@ import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.firebase.ui.firestore.FirestoreRecyclerOptions
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.model.Pilot
+import com.ipca.formulaworld.model.Team
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.URL
@@ -34,6 +33,7 @@ class ClassificationFragment : Fragment() {
     private lateinit var pilotsButton: Button
     private lateinit var teamsButton: Button
     private lateinit var pilotsRecyclerView: RecyclerView
+    private lateinit var teamsRecyclerView: RecyclerView
 
     private val db by lazy {
         activity?.let {
@@ -44,10 +44,6 @@ class ClassificationFragment : Fragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,43 +52,73 @@ class ClassificationFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_classification, container, false)
     }
 
-    private lateinit var adapter: ClassificationArrayAdapter
+    private lateinit var pilotsAdapter: ClassificationPilotsArrayAdapter
+    private lateinit var teamsAdapter: ClassificationTeamsArrayAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // List divider
+        val itemDecoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
+        activity?.getDrawable(R.drawable.divider)?.let { itemDecoration.setDrawable(it) }
+
         // Pilots List
-        val imgVerstappen = context?.resources?.getDrawable(R.drawable.verstappen)
-        val imgHamilton = context?.resources?.getDrawable(R.drawable.hamilton)
         pilotsRecyclerView = view.findViewById<RecyclerView>(R.id.classification_pilots_list)
+        pilotsRecyclerView.addItemDecoration(itemDecoration)
+
+        val pilotsLinearLayoutManager = LinearLayoutManager(context)
+        pilotsLinearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        pilotsRecyclerView.layoutManager = pilotsLinearLayoutManager
+        pilotsRecyclerView.itemAnimator = DefaultItemAnimator()
+
+        // Teams List
+
+        teamsRecyclerView = view.findViewById<RecyclerView>(R.id.classification_teams_list)
+        teamsRecyclerView.addItemDecoration(itemDecoration)
+
+        val teamsLinearLayoutManager = LinearLayoutManager(context)
+        teamsLinearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        teamsRecyclerView.layoutManager = teamsLinearLayoutManager
+        teamsRecyclerView.itemAnimator = DefaultItemAnimator()
 
         GlobalScope.launch {
-            // Atualizar lista de pilotos
-            val values = mutableListOf<Pilot>()
-            val data = db?.pilotDao()?.getAll()
-            data?.forEach {
+            // Update pilots list
+            val pilotsValues = mutableListOf<Pilot>()
+            val pilots = db?.pilotDao()?.getAllOrderByClassification()
+            pilots?.forEach {
+                Log.d("Pilot", it.name)
                 val url = URL(it.photo)
                 val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
 
                 it.image = bmp
 
-                values.add(it)
-//                adapter.mList.add(it)
+                pilotsValues.add(it)
+            }
+
+            // Update teams list
+            val teamsValues = mutableListOf<Team>()
+            val teams = db?.teamDao()?.getAllOrderByClassification()
+            teams?.forEach {
+                Log.d("Team", it.name)
+                val photo = it.photo
+                if(photo != null && photo.isNotEmpty() && photo != "null") {
+                    val url = URL(photo)
+                    val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+
+                    it.image = bmp
+                }
+
+                teamsValues.add(it)
             }
 
             activity?.runOnUiThread {
-                adapter = ClassificationArrayAdapter(values)
-                pilotsRecyclerView.adapter = adapter
+                pilotsAdapter = ClassificationPilotsArrayAdapter(pilotsValues)
+                pilotsRecyclerView.adapter = pilotsAdapter
+
+                teamsAdapter = ClassificationTeamsArrayAdapter(teamsValues)
+                teamsRecyclerView.adapter = teamsAdapter
             }
         }
-
-        val linearLayoutManager = LinearLayoutManager(context)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        pilotsRecyclerView.layoutManager = linearLayoutManager
-
-//        val firebaseDB = FirebaseFirestore.getInstance()
-
-        // Teams List
 
         // Tab buttons click events (switch between lists)
         pilotsButton = view.findViewById<Button>(R.id.classification_pilots_button)
@@ -101,14 +127,12 @@ class ClassificationFragment : Fragment() {
         showPilotsList()
 
         pilotsButton.setOnClickListener {
-            Log.d("Teste", "Teste1")
             if(!pilotsButton.isSelected) {
                 showPilotsList()
             }
         }
 
         teamsButton.setOnClickListener {
-            Log.d("Teste", "Teste2")
             if(!teamsButton.isSelected) {
                 showTeamsList()
             }
@@ -120,12 +144,14 @@ class ClassificationFragment : Fragment() {
         teamsButton.isSelected = false
 
         pilotsRecyclerView.visibility = VISIBLE
+        teamsRecyclerView.visibility = INVISIBLE
     }
 
     private fun showTeamsList() {
         teamsButton.isSelected = true
         pilotsButton .isSelected = false
 
+        teamsRecyclerView.visibility = VISIBLE
         pilotsRecyclerView.visibility = INVISIBLE
     }
 

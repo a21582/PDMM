@@ -7,13 +7,15 @@ import androidx.room.RoomDatabase
 import com.ipca.formulaworld.Dao.BetsDao
 import com.ipca.formulaworld.Dao.PilotDao
 import com.ipca.formulaworld.model.Bets
+import com.ipca.formulaworld.Dao.TeamDao
 import com.ipca.formulaworld.model.Pilot
+import com.ipca.formulaworld.model.Team
 
-//import com.ipca.formulaworld.model.bets
 
-@Database(entities = [Pilot::class, Bets::class], version = 1)
+@Database(entities = [Pilot::class, Team::class, Bets::class], version = 1)
 abstract class MyDatabase: RoomDatabase() {
     abstract fun pilotDao(): PilotDao
+    abstract fun teamDao(): TeamDao
     abstract fun betsDao(): BetsDao
     companion object {
         @Volatile private var instance: MyDatabase? = null

@@ -13,6 +13,7 @@
     <color name="dark_cyan_blue">#254F67</color>
     <color name="dark_blue">#00314D</color>
     <color name="grey">#9A9A9A</color>
+    <color name="dark_grey">#707070</color>
     <color name="alice_blue">#F9FAFC</color>
     <color name="orange">#FC9E3C</color>
 </resources>
