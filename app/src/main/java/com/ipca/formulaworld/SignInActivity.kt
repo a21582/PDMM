@@ -89,5 +89,8 @@ class SignInActivity : AppCompatActivity() {
             }
     }
 
-    fun register(view: View) {}
+    fun register(view: View) {
+        val intent = Intent(this@SignInActivity, RegisterActivity::class.java)
+        startActivity(intent)
+    }
 }

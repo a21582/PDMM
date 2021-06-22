@@ -4,17 +4,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.MenuItem
-import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.room.Room
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.ipca.formulaworld.ui.bets.BetsFragment
+import com.ipca.formulaworld.database.MyDatabase
+import com.ipca.formulaworld.ui.bets.BetsCompetitionFragment
 import com.ipca.formulaworld.ui.categories.CategoriesFragment
 import com.ipca.formulaworld.ui.home.HomeFragment
 import com.ipca.formulaworld.ui.more.MoreFragment
@@ -25,15 +23,33 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var navigationView: BottomNavigationView
 
+    private val db by lazy {
+        Room.databaseBuilder(
+            applicationContext,
+            MyDatabase::class.java, "formulaworld.db"
+        ).build()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Firestore
+
+        val firestoreSetup = FirestoreSetup();
+        firestoreSetup.setup(db)
+
         auth = Firebase.auth
 
-        val user = auth.currentUser
+        openHomeFragment()
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         openHomeFragment()
+        // Check if the user is signed in
+        val user = auth.currentUser
 
         if (user != null) {
             navigationView = findViewById(R.id.nav_view)
@@ -62,44 +78,6 @@ class MainActivity : AppCompatActivity() {
                     else -> super.onOptionsItemSelected(item)
                 }
             }
-
-//                val navController = findNavController(R.id.nav_host_fragment)
-
-            // Passing each menu ID as a set of Ids because each
-            // menu should be considered as top level destinations.
-//                val appBarConfiguration = AppBarConfiguration(setOf(
-//                    R.id.navigation_home, R.id.navigation_categories, R.id.navigation_store, R.id.navigation_bets, R.id.navigation_more))
-//
-//                setupActionBarWithNavController(navController, appBarConfiguration)
-//                navView.setupWithNavController(navController)
-
-//                val signOutButton = findViewById<Button>(R.id.google_logout_btn)
-//
-//                signOutButton.setOnClickListener {
-//                    // Sign out from GoogleSignInClient, so the user can sign in with a different Google account
-//                    val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                        .requestIdToken(this.getString(R.string.default_web_client_id))
-//                        .requestEmail()
-//                        .build()
-//
-//                    val googleSignInClient = GoogleSignIn.getClient(this, gso)
-//
-//                    googleSignInClient.signOut()
-//
-//                    val intent = Intent(this, SignInActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-//                }
-//
-//                val profileButton = findViewById<Button>(R.id.profile_button)
-//
-//                profileButton.setOnClickListener {
-//                    // Open user profile's page
-//
-//                    val intent = Intent(this@MainActivity, ProfileActivity::class.java)
-//                    startActivity(intent)
-//                    finish()
-//                }
         } else {
             Handler().postDelayed({
                 // Google Sign In Tests
@@ -108,6 +86,8 @@ class MainActivity : AppCompatActivity() {
                 finish()
             }, 2000)
         }
+
+
     }
 
     private fun openHomeFragment() {
@@ -130,7 +110,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun openBetsFragment() {
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, BetsFragment())
+        ft.replace(R.id.fragment_placeholder, BetsCompetitionFragment())
         ft.commit()
     }
 
