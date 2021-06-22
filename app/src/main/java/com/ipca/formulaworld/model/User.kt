@@ -7,6 +7,7 @@ class User() {
     lateinit var vat: String
     lateinit var email: String
     lateinit var password: String
+    lateinit var uid: String
 
     constructor(firstName: String, lastName: String, phone: String, vat: String, email: String, password: String) : this() {
         this.firstName = firstName
