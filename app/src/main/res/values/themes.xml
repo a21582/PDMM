@@ -22,4 +22,9 @@
     <style name="Theme.FormulaWorld.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.FormulaWorld.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="splashScreen" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:statusBarColor">@color/dark_blue</item>
+    </style>
 </resources>
