@@ -5,18 +5,19 @@ import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.*
 
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.ipca.formulaworld.ui.Map.MapFragment
+import com.ipca.formulaworld.ui.more.MoreFragment
+import com.ipca.formulaworld.ui.store.StoreFragment
 
-//import com.ipca.formulaworld.databinding.ActivityMapBinding
 
 class MapActivity : AppCompatActivity() , OnMapReadyCallback{
 
@@ -32,7 +33,13 @@ class MapActivity : AppCompatActivity() , OnMapReadyCallback{
 
         fetchLocation()
 
+
+        val back_localization_button = findViewById<Button>(R.id.back_localization_button)
+        back_localization_button.setOnClickListener {
+            finish()
+        }
     }
+
 
     private fun fetchLocation() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
