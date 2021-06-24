@@ -6,10 +6,9 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.ipca.formulaworld.model.Bets
-//import com.ipca.formulaworld.model.bets
+import com.ipca.formulaworld.model.BetsCompetition
 
-class BetsCompetitionAdapter (var values: MutableList<Bets>, val itemClickListener: BetsCompetitionFragment) :
+class BetsCompetitionAdapter (var values: MutableList<BetsCompetition>, val itemClickListener: BetsCompetitionFragment) :
     RecyclerView.Adapter<BetsCompetitionAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BetsCompetitionAdapter.ViewHolder {
@@ -36,7 +35,7 @@ class BetsCompetitionAdapter (var values: MutableList<Bets>, val itemClickListen
                 charSequence: CharSequence?,
                 filterResults: Filter.FilterResults
             ) {
-                values = filterResults.values as ArrayList<Bets>
+                values = filterResults.values as ArrayList<BetsCompetition>
                 notifyDataSetChanged()
             }
 
@@ -59,16 +58,10 @@ class BetsCompetitionAdapter (var values: MutableList<Bets>, val itemClickListen
 
     }
 
-
-
-    fun getItemAtPosition(position: Int): Bets? {
-        return values[position]
-    }
-
     inner class ViewHolder(inflater: LayoutInflater, private val parent: ViewGroup) : RecyclerView.ViewHolder(inflater.inflate(com.ipca.formulaworld.R.layout.list_item_5, parent, false)), View.OnClickListener
     {
 
-        fun bindItems(bet: Bets, clickListener: BetsCompetitionFragment) {
+        fun bindItems(bet: BetsCompetition, clickListener: BetsCompetitionFragment) {
             val textViewCompetition = itemView.findViewById(com.ipca.formulaworld.R.id.competition) as TextView
 
             textViewCompetition.text = bet.competition.toString()
@@ -89,8 +82,5 @@ class BetsCompetitionAdapter (var values: MutableList<Bets>, val itemClickListen
         }
     }
 
-    interface OnItemClickListener{
-        fun onItemClicked(bet: Bets)
-    }
 
 }

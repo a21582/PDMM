@@ -1,15 +1,14 @@
 package com.ipca.formulaworld.ui.bets
 
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.ipca.formulaworld.model.BetsTeams
+import com.ipca.formulaworld.model.BetsPlayers
 
-class BetsTeamAdapter(var values: MutableList<BetsTeams>, val itemClickListener: OnItemClickListener) :
-    RecyclerView.Adapter<BetsTeamAdapter.ViewHolder>() {
+class BetsPlayerAdapter(var values: MutableList<BetsPlayers>, val itemClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<BetsPlayerAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,12 +25,12 @@ class BetsTeamAdapter(var values: MutableList<BetsTeams>, val itemClickListener:
 
     override fun getItemCount(): Int = values.size
 
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
-        fun bindItems(bet: BetsTeams, clickListener: OnItemClickListener) {
+        fun bindItems(bet: BetsPlayers, clickListener: OnItemClickListener) {
             val textViewName = itemView.findViewById(com.ipca.formulaworld.R.id.team) as TextView
-            val textViewOdd  = itemView.findViewById(com.ipca.formulaworld.R.id.odd) as TextView
-            textViewName.text = bet.team
+            val textViewOdd = itemView.findViewById(com.ipca.formulaworld.R.id.odd) as TextView
+            textViewName.text = bet.player
             textViewOdd.text = bet.odd
             itemView.setOnClickListener {
                 clickListener.onItemClicked(bet)
@@ -41,6 +40,7 @@ class BetsTeamAdapter(var values: MutableList<BetsTeams>, val itemClickListener:
         init {
             itemView.setOnClickListener(this)
         }
+
 
         override fun onClick(v: View?) {
             val position = adapterPosition
@@ -52,9 +52,7 @@ class BetsTeamAdapter(var values: MutableList<BetsTeams>, val itemClickListener:
 
     }
 
-    interface OnItemClickListener{
-        fun onItemClicked(bet: BetsTeams)
+    interface OnItemClickListener {
+        fun onItemClicked(bet: BetsPlayers)
     }
-
-
 }
