@@ -7,6 +7,7 @@ import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.model.Pilot
 import com.ipca.formulaworld.model.Bets
 import com.ipca.formulaworld.model.Team
+import com.ipca.formulaworld.model.User
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -95,9 +96,9 @@ class FirestoreSetup {
                 Log.w("Bets", "Error getting documents.", exception)
             }
         
-                firestoreDb.collection("teams")
-                    .get()
-                    .addOnSuccessListener { result ->
+        firestoreDb.collection("teams")
+            .get()
+            .addOnSuccessListener { result ->
                         GlobalScope.launch {
                             for (document in result) {
                         Log.d("TeamId", document.id)

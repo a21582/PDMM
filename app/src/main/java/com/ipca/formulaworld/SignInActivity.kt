@@ -17,6 +17,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.ipca.formulaworld.utils.getSharedPreferences
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class SignInActivity : AppCompatActivity() {
@@ -53,7 +56,7 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    public fun signIn(view: View) {
+    fun signIn(view: View) {
         closeKeyboard()
 
         val email: String = emailEditText.text.toString().trim()
@@ -78,11 +81,54 @@ class SignInActivity : AppCompatActivity() {
 
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if(task.isSuccessful) {
-                val intent = Intent(this@SignInActivity, ProfileActivity::class.java)
-                startActivity(intent)
-                finish()
+
+                val firestoreSetup = FirestoreSetup();
+                val sp = getSharedPreferences(this.applicationContext)
+
+                task.result.user?.uid?.let { uId ->
+
+                    val firestoreDb = Firebase.firestore
+
+                    firestoreDb.collection("users")
+                        .whereEqualTo("uId", uId)
+                        .get()
+                        .addOnSuccessListener {
+                            if(!it.isEmpty) {
+                                val firstName = it.documents.first()["firstName"].toString()
+                                val lastName = it.documents.first()["lastName"].toString()
+                                val phone = it.documents.first()["phone"].toString()
+                                val vat = it.documents.first()["vat"].toString()
+
+                                Log.d("FirestoreUser", firstName)
+                                // Store user data in Shared Preferences
+                                sp.edit()
+                                    .putString("uId", uId)
+                                    .putString("email", email)
+                                    .putString("firstName", firstName)
+                                    .putString("lastName", lastName)
+                                    .putString("phone", phone)
+                                    .putString("vat", vat)
+                                    .apply()
+
+                                /* Consider using apply() instead; commit writes its data to persistent storage immediately,
+                                whereas apply will handle it in the background */
+
+                                Log.d("IntentUser", firstName)
+
+                                val intent = Intent(this@SignInActivity, ProfileActivity::class.java)
+                                intent.putExtra("firstName", firstName)
+                                intent.putExtra("lastName", lastName)
+                                intent.putExtra("phone", phone)
+                                intent.putExtra("vat", vat)
+                                intent.putExtra("email", email)
+
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
+                }
             } else {
-                Toast.makeText(this, "Failed to login!", Toast.LENGTH_LONG)
+                Toast.makeText(this, "Failed to login!", Toast.LENGTH_LONG).show()
             }
         }
     }

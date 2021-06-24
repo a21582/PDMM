@@ -17,4 +17,11 @@ class User() {
         this.email = email
         this.password = password
     }
+
+    constructor(firstName: String, lastName: String, phone: String, vat: String) : this() {
+        this.firstName = firstName
+        this.lastName = lastName
+        this.phone = phone
+        this.vat = vat
+    }
 }
