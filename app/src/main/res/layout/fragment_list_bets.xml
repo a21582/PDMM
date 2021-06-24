@@ -10,7 +10,10 @@
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
+        android:textSize="16sp"
         android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         tools:ignore="MissingConstraints" />
 
     <FrameLayout
@@ -18,12 +21,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-   <!--
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/spinner"
-        app:layout_constraintBottom_toTopOf="parent"/>
-        -->
+    <!--
+     <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/recyclerView"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         app:layout_constraintTop_toTopOf="@+id/spinner"
+         app:layout_constraintBottom_toTopOf="parent"/>
+         -->
 </LinearLayout>

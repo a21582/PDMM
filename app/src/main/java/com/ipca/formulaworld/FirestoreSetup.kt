@@ -4,10 +4,7 @@ import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ipca.formulaworld.database.MyDatabase
-import com.ipca.formulaworld.model.Pilot
-import com.ipca.formulaworld.model.Bets
-import com.ipca.formulaworld.model.Team
-import com.ipca.formulaworld.model.User
+import com.ipca.formulaworld.model.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -54,29 +51,45 @@ class FirestoreSetup {
                 Log.w("Pilots", "Error getting documents.", exception)
             }
 
-        firestoreDb.collection("bets")
+        firestoreDb.collection("bets_competition")
             .get()
             .addOnSuccessListener { result ->
                 GlobalScope.launch {
                     for (document in result) {
-                        Log.d("bets", "${document.id} => ${document.data}")
-                        val checkUpdates = db.betsDao().findByObjectId(document.id)
+                        val checkUpdates = db.betsCompetitionDao().findByObjectId(document.id)
                         if (checkUpdates != null) {
                             // Update
                         } else {
-//                        val checkPilot = db.betsDao().getAll()
-                            Log.d("bets", "passou aqui3")
-
-/*
-                            document.toObject(bets::class.java)?.let {
-                                db.betsDao().insertAll(
-                                    it
+                            db.betsCompetitionDao().insertAll(
+                                BetsCompetition(
+                                    null,
+                                    document.id,
+                                    document.data["competition"].toString()
                                 )
-                            }
- */
+                            )
 
-                            db.betsDao().insertAll(
-                                Bets(
+                        }
+
+                    }
+
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Bets", "Error getting documents.", exception)
+            }
+
+        firestoreDb.collection("bets_teams")
+            .get()
+            .addOnSuccessListener { result ->
+                GlobalScope.launch {
+                    for (document in result) {
+                        val checkUpdates = db.betsTeamsDao().findByObjectId(document.id)
+                        if (checkUpdates != null) {
+                            // Update
+                        } else {
+                            db.betsTeamsDao().insertAll(
+                                BetsTeams(
                                     null,
                                     document.id,
                                     document.data["competition"].toString(),
@@ -95,39 +108,70 @@ class FirestoreSetup {
             .addOnFailureListener { exception ->
                 Log.w("Bets", "Error getting documents.", exception)
             }
-        
+
+        firestoreDb.collection("bets_player")
+            .get()
+            .addOnSuccessListener { result ->
+                GlobalScope.launch {
+                    for (document in result) {
+                        val checkUpdates = db.betsPlayersDao().findByObjectId(document.id)
+                        if (checkUpdates != null) {
+                            // Update
+                        } else {
+                            db.betsPlayersDao().insertAll(
+                                BetsPlayers(
+                                    null,
+                                    document.id,
+                                    document.data["competition"].toString(),
+                                    document.data["player"].toString(),
+                                    document.data["odd"].toString(),
+                                )
+                            )
+
+                        }
+
+                    }
+
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Bets", "Error getting documents.", exception)
+            }
+
+
         firestoreDb.collection("teams")
             .get()
             .addOnSuccessListener { result ->
-                        GlobalScope.launch {
-                            for (document in result) {
-                        Log.d("TeamId", document.id)
-                        val checkTeam = db.teamDao().findByObjectId(document.id)
-                        if(checkTeam != null) {
-                            // Update data
-                            db.teamDao().updateTeam(Team(
-                                checkTeam.id,
+                    GlobalScope.launch {
+                        for (document in result) {
+                    Log.d("TeamId", document.id)
+                    val checkTeam = db.teamDao().findByObjectId(document.id)
+                    if(checkTeam != null) {
+                        // Update data
+                        db.teamDao().updateTeam(Team(
+                            checkTeam.id,
+                            document.id,
+                            document.data["name"].toString(),
+                            document.data["photo"].toString(),
+                            document.data["classification"].toString(),
+                            document.data["year"].toString(),
+                        ))
+                    } else {
+                        db.teamDao().insertAll(
+                            Team(
+                                null,
                                 document.id,
                                 document.data["name"].toString(),
                                 document.data["photo"].toString(),
                                 document.data["classification"].toString(),
                                 document.data["year"].toString(),
-                            ))
-                        } else {
-                            db.teamDao().insertAll(
-                                Team(
-                                    null,
-                                    document.id,
-                                    document.data["name"].toString(),
-                                    document.data["photo"].toString(),
-                                    document.data["classification"].toString(),
-                                    document.data["year"].toString(),
-                                )
                             )
-                        }
+                        )
                     }
                 }
             }
+        }
             .addOnFailureListener { exception ->
                 Log.w("Teams", "Error getting documents.", exception)
             }

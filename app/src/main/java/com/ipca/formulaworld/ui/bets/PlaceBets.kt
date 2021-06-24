@@ -18,7 +18,7 @@ import com.ipca.formulaworld.R
 import java.math.RoundingMode
 
 
-class PlaceBets : Fragment(R.layout.fragment_bets_place) {
+class PlaceBets : Fragment() {
     var team: String? = ""
     var odd: String? = ""
     var balance: String?= "1500"
@@ -39,7 +39,7 @@ class PlaceBets : Fragment(R.layout.fragment_bets_place) {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        team = arguments?.getString("team")
+        team = arguments?.getString("name")
         odd = arguments?.getString("odd")
 
 
@@ -49,7 +49,6 @@ class PlaceBets : Fragment(R.layout.fragment_bets_place) {
         val Button = root.findViewById<Button>(R.id.buttonBet)
         Button.setOnClickListener{
             if (valueBet > balance.toString().toFloat()) {
-                //Toast.makeText(c, "Saldo Insufeciente", Toast.LENGTH_LONG).show()
                 Toast.makeText(getActivity()?.getBaseContext(),"Saldo Insufeciente", Toast.LENGTH_LONG).show()
             }
             else
@@ -70,11 +69,7 @@ class PlaceBets : Fragment(R.layout.fragment_bets_place) {
     @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*
-        team = arguments?.getString("team")
-        odd = arguments?.getString("odd")
 
-         */
         val textViewTeam = view.findViewById<TextView>(R.id.textViewTeam)
         textViewTeam.setText(team)
 
@@ -113,12 +108,10 @@ class PlaceBets : Fragment(R.layout.fragment_bets_place) {
 
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
 
-                // TODO Auto-generated method stub
             }
 
             override fun afterTextChanged(s: Editable) {
 
-                // Place the logic here for your output edittext
             }
         })
 

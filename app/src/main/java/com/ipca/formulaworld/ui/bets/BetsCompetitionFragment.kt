@@ -17,16 +17,16 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.google.firebase.database.DatabaseReference
 import com.ipca.formulaworld.database.MyDatabase
-import com.ipca.formulaworld.model.Bets
+import com.ipca.formulaworld.model.BetsCompetition
 import com.mancj.materialsearchbar.MaterialSearchBar
 import kotlinx.android.synthetic.main.fragment_team_bets.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class BetsCompetitionFragment : Fragment(com.ipca.formulaworld.R.layout.fragment_competition_bets) {
+class BetsCompetitionFragment : Fragment(){
 
-    val values = mutableListOf<Bets>()
+    val values = mutableListOf<BetsCompetition>()
     private lateinit var mAdapter: BetsCompetitionAdapter
 
     private val db by lazy {
@@ -37,8 +37,6 @@ class BetsCompetitionFragment : Fragment(com.ipca.formulaworld.R.layout.fragment
             ).build()
         }
     }
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,12 +52,12 @@ class BetsCompetitionFragment : Fragment(com.ipca.formulaworld.R.layout.fragment
     }
 
     @SuppressLint("ResourceType")
-    fun onItemClicked(bet: Bets) {
+    fun onItemClicked(bet: BetsCompetition) {
         val bundle = Bundle()
         bundle.putString("competition", bet.competition.toString())
 
         val transaction: FragmentTransaction = this.parentFragmentManager.beginTransaction()
-        val fragmentTwo = BetsTeamFragment()
+        val fragmentTwo = BetsListFragment()
         fragmentTwo.arguments = bundle
         transaction.replace(com.ipca.formulaworld.R.id.fragment_placeholder, fragmentTwo)
         transaction.commit()
@@ -85,7 +83,7 @@ class BetsCompetitionFragment : Fragment(com.ipca.formulaworld.R.layout.fragment
 
         GlobalScope.launch {
             // Atualiza lista de competições
-            val data = db!!.betsDao().getAll()
+            val data = db!!.betsCompetitionDao().getAll()
             data?.forEach {
                 values.add(it)
             }
