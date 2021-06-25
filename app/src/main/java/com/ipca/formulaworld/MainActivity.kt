@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_FormulaWorld)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

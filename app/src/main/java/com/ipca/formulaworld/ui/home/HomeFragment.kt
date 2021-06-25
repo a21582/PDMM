@@ -57,9 +57,8 @@ class HomeFragment : Fragment() {
         profileButton.setOnClickListener {
             // Open user profile's page
 
-//            val intent = Intent(this@MainActivity, ProfileActivity::class.java)
-//            startActivity(intent)
-//            finish()
+            val intent = Intent(activity, ProfileActivity::class.java)
+            startActivity(intent)
         }
     }
 }

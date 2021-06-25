@@ -1,6 +1,8 @@
 package com.ipca.formulaworld
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
@@ -12,12 +14,17 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.ipca.formulaworld.model.User
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var database: FirebaseDatabase
+    private lateinit var reference: DatabaseReference
 
     private lateinit var firstNameEditText: EditText
     private lateinit var lastNameEditText: EditText
@@ -31,6 +38,8 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         mAuth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance()
+        reference = database.getReference("users")
 
         firstNameEditText = findViewById(R.id.register_firstNameEditText)
         lastNameEditText = findViewById(R.id.register_lastNameEditText)
@@ -49,6 +58,8 @@ class RegisterActivity : AppCompatActivity() {
         val phone: String = phoneEditText.text.toString().trim()
         val email: String = emailEditText.text.toString().trim()
         val password: String = passwordEditText.text.toString().trim()
+
+        // Data validations
 
         if(firstName.isEmpty()) {
             firstNameEditText.error = "First name is required!"
@@ -88,54 +99,47 @@ class RegisterActivity : AppCompatActivity() {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(
             this, OnCompleteListener<AuthResult>() { task ->
                 if (task.isSuccessful) {
+
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d("Register", "signInWithCustomToken:success");
-
-                    val user: User = User(firstName, lastName, phone, vat, email, password)
-
                     FirebaseAuth.getInstance().currentUser?.let {
-                        FirebaseDatabase.getInstance().getReference("Users")
-                            .child(it.uid).setValue(user).addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    Toast.makeText(
-                                        this,
-                                        "User has been registered!",
-                                        Toast.LENGTH_LONG
-                                    ).show()
-                                } else {
-                                    Toast.makeText(this, "Failed to register!", Toast.LENGTH_LONG)
-                                        .show()
-                                }
-                            }
+
+                        val data = hashMapOf(
+                            "uId" to it.uid,
+                            "firstName" to firstName,
+                            "lastName" to lastName,
+                            "phone" to phone,
+                            "vat" to vat
+                        )
+
+                        val firestoreDb = Firebase.firestore
+
+                        // Add user to firestore collection
+                        firestoreDb.collection("users").add(data).addOnSuccessListener {
+                            val returnIntent = Intent()
+                            returnIntent.putExtra("message", "User has been registered!")
+                            setResult(Activity.RESULT_OK, returnIntent)
+                            finish()
+                        }.addOnFailureListener {
+                            Toast.makeText(this, "Failed to register!", Toast.LENGTH_LONG).show()
+                        }
                     }
 
 //                    val user: FirebaseUser? = mAuth.getCurrentUser();
 //                    updateUI(user);
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w("Register", "signInWithCustomToken:failure", task.getException());
-                    Toast.makeText(this, "Failed to register!", Toast.LENGTH_LONG).show()
-
-//                    Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-//                    updateUI(null);
+                    Toast.makeText(this, task.exception?.localizedMessage.toString(), Toast.LENGTH_LONG).show()
                 }
             }
         )
     }
 
     private fun closeKeyboard() {
-        // this will give us the view
-        // which is currently focus
-        // in this layout
+        // Get view currently in focus
         val view = this.currentFocus
 
-        // if nothing is currently
-        // focus then this will protect
-        // the app from crash
         if (view != null) {
 
-            // now assign the system
-            // service to InputMethodManager
             val manager: InputMethodManager = this.getSystemService(
                 Context.INPUT_METHOD_SERVICE
             ) as InputMethodManager

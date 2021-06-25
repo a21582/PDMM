@@ -1,22 +1,34 @@
 package com.ipca.formulaworld
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.Toast
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.ipca.formulaworld.utils.getSharedPreferences
 import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+
+    private lateinit var emailEditText: EditText
+    private lateinit var passwordEditText: EditText
 
     companion object {
         private const val RC_SIGN_IN = 120
@@ -25,6 +37,9 @@ class SignInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
+
+        emailEditText = findViewById(R.id.signIn_emailEditText)
+        passwordEditText = findViewById(R.id.signIn_passwordEditText)
 
         // Configure Google Sign In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -41,7 +56,82 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
-    public fun signIn(view: View) { }
+    fun signIn(view: View) {
+        closeKeyboard()
+
+        val email: String = emailEditText.text.toString().trim()
+        val password: String = passwordEditText.text.toString().trim()
+
+        if(email.isEmpty()) {
+            emailEditText.error = "Email is required!"
+            emailEditText.requestFocus()
+            return
+        }
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            emailEditText.error = "The email is not valid!"
+            emailEditText.requestFocus()
+        }
+
+        if(password.isEmpty()) {
+            passwordEditText.error = "Password is required!"
+            passwordEditText.requestFocus()
+            return
+        }
+
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            if(task.isSuccessful) {
+
+                val firestoreSetup = FirestoreSetup();
+                val sp = getSharedPreferences(this.applicationContext)
+
+                task.result.user?.uid?.let { uId ->
+
+                    val firestoreDb = Firebase.firestore
+
+                    firestoreDb.collection("users")
+                        .whereEqualTo("uId", uId)
+                        .get()
+                        .addOnSuccessListener {
+                            if(!it.isEmpty) {
+                                val firstName = it.documents.first()["firstName"].toString()
+                                val lastName = it.documents.first()["lastName"].toString()
+                                val phone = it.documents.first()["phone"].toString()
+                                val vat = it.documents.first()["vat"].toString()
+
+                                Log.d("FirestoreUser", firstName)
+                                // Store user data in Shared Preferences
+                                sp.edit()
+                                    .putString("uId", uId)
+                                    .putString("email", email)
+                                    .putString("firstName", firstName)
+                                    .putString("lastName", lastName)
+                                    .putString("phone", phone)
+                                    .putString("vat", vat)
+                                    .apply()
+
+                                /* Consider using apply() instead; commit writes its data to persistent storage immediately,
+                                whereas apply will handle it in the background */
+
+                                Log.d("IntentUser", firstName)
+
+                                val intent = Intent(this@SignInActivity, ProfileActivity::class.java)
+                                intent.putExtra("firstName", firstName)
+                                intent.putExtra("lastName", lastName)
+                                intent.putExtra("phone", phone)
+                                intent.putExtra("vat", vat)
+                                intent.putExtra("email", email)
+
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
+                }
+            } else {
+                Toast.makeText(this, "Failed to login!", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
 
     private fun googleSignIn() {
         val signInIntent = googleSignInClient.signInIntent
@@ -70,6 +160,17 @@ class SignInActivity : AppCompatActivity() {
                 Log.w("SignInFragment", exception.toString())
             }
         }
+
+        // After register
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                val message = data?.getStringExtra("message")
+                if (message != null) {
+                    Log.d("Resposta", message)
+                    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
@@ -91,6 +192,29 @@ class SignInActivity : AppCompatActivity() {
 
     fun register(view: View) {
         val intent = Intent(this@SignInActivity, RegisterActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent, 1)
+    }
+
+    private fun closeKeyboard() {
+        // this will give us the view
+        // which is currently focus
+        // in this layout
+        val view = this.currentFocus
+
+        // if nothing is currently
+        // focus then this will protect
+        // the app from crash
+        if (view != null) {
+
+            // now assign the system
+            // service to InputMethodManager
+            val manager: InputMethodManager = this.getSystemService(
+                Context.INPUT_METHOD_SERVICE
+            ) as InputMethodManager
+            manager
+                .hideSoftInputFromWindow(
+                    view.windowToken, 0
+                )
+        }
     }
 }

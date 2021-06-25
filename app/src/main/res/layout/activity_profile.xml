@@ -11,66 +11,127 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
+        <TextView
+            android:id="@+id/profile_firstNameLabel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/first_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="50dp"/>
+
         <EditText
             android:id="@+id/profile_firstNameEditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/maven_pro_medium"
             android:hint="@string/first_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_firstNameLabel"
+            android:layout_marginTop="6dp" />
+
+        <TextView
+            android:id="@+id/profile_lastNameLabel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/last_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="16dp" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_firstNameEditText"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/profile_lastNameEditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/last_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_firstNameEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_lastNameLabel" />
+
+        <TextView
+            android:id="@+id/profile_vatLabel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_lastNameEditText"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/profile_VatEditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/vat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_lastNameEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_vatLabel" />
+
+        <TextView
+            android:id="@+id/profile_phoneLabel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_VatEditText"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/profile_phoneEditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_VatEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_phoneLabel" />
 
-        <EditText
-            android:id="@+id/profile_emailEditText"
+        <TextView
+            android:id="@+id/profile_emailLabel"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:hint="@string/e_mail"
+            android:text="@string/e_mail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_phoneEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_phoneEditText"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/profile_emailTextView"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:hint="@string/e_mail"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_emailLabel" />
+
+        <TextView
+            android:id="@+id/profile_passwordLabel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_emailTextView"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/profile_passwordEditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/password"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_emailEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_passwordLabel" />
 
         <Button
             android:id="@+id/profile_submitButton"

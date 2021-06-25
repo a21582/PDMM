@@ -4,19 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.ipca.formulaworld.Dao.BetsDao
-import com.ipca.formulaworld.Dao.PilotDao
-import com.ipca.formulaworld.model.Bets
-import com.ipca.formulaworld.Dao.TeamDao
-import com.ipca.formulaworld.model.Pilot
-import com.ipca.formulaworld.model.Team
+import com.ipca.formulaworld.Dao.*
+import com.ipca.formulaworld.model.*
 
 
-@Database(entities = [Pilot::class, Team::class, Bets::class], version = 1)
+@Database(entities = [Pilot::class, Team::class, BetsCompetition::class, BetsTeams::class, BetsPlayers::class], version = 1)
 abstract class MyDatabase: RoomDatabase() {
     abstract fun pilotDao(): PilotDao
     abstract fun teamDao(): TeamDao
-    abstract fun betsDao(): BetsDao
+    abstract fun betsCompetitionDao(): BetsCompetitionDao
+    abstract fun betsTeamsDao(): BetsTeamsDao
+    abstract fun betsPlayersDao(): BetsPlayersDao
     companion object {
         @Volatile private var instance: MyDatabase? = null
         private val LOCK = Any()

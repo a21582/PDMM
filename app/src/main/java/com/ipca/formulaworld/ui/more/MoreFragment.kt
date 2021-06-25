@@ -1,13 +1,18 @@
 package com.ipca.formulaworld.ui.more
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
-import com.ipca.formulaworld.R
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import com.ipca.formulaworld.MapActivity
 import com.ipca.formulaworld.MenuOption
+import com.ipca.formulaworld.R
+import com.ipca.formulaworld.ui.Map.MapFragment
 
 /**
  * A simple [Fragment] subclass.
@@ -33,11 +38,34 @@ class MoreFragment : Fragment() {
         listView.divider = null;
 
         val options = mutableListOf<MenuOption>(
-                MenuOption("Estatísticas", R.drawable.ic_statistics),
-                MenuOption("História", R.drawable.ic_history),
-                MenuOption("Fórum", R.drawable.ic_discussion),
+            MenuOption("Grand Prix Circuits", R.drawable.ic_location),
+            MenuOption("História", R.drawable.ic_history),
+            MenuOption("Fórum", R.drawable.ic_discussion),
         )
         val adapter = MoreArrayAdapter(view.context, options)
         listView.adapter = adapter
+
+
+        listView.setOnItemClickListener { parent, view, position, id ->
+
+            adapter.getItem(0)
+
+            when (position) {
+                0 -> {
+
+                    val ft: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
+                    ft?.replace(R.id.fragment_placeholder, MapFragment())
+
+                    ft?.commit()
+                }
+                1 -> {
+                    Log.d("Teste", "Pos 0")
+                }
+                2 -> {
+                    Log.d("Teste", "Pos 0")
+                }
+
+            }
+        }
     }
 }
