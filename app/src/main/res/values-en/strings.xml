@@ -3,4 +3,13 @@
     <string name="app_name">FormulaWorld</string>
     <string name="e_mail">E-mail</string>
     <string name="password">Password</string>
+    <string name="title_classification">Classification</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="teams">Teams</string>
+    <string name="pilots">Pilots</string>
+    <string name="phone">Phone</string>
+    <string name="vat">VAT</string>
+    <string name="update">Update</string>
+    <string name="last_name">Last name</string>
+    <string name="first_name">Last name</string>
 </resources>

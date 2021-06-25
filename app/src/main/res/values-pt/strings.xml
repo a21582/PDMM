@@ -2,5 +2,14 @@
 <resources>
     <string name="app_name">FormulaWorld</string>
     <string name="e_mail">E-mail</string>
-    <string name="password">Password</string>
+    <string name="password">Palavra-passe</string>
+    <string name="title_classification">Classificação</string>
+    <string name="create_new_account">Criar nova conta</string>
+    <string name="teams">Equipas</string>
+    <string name="pilots">Pilotos</string>
+    <string name="phone">Telemóvel</string>
+    <string name="vat">NIF</string>
+    <string name="update">Atualizar</string>
+    <string name="last_name">Último nome</string>
+    <string name="first_name">Primeiro nome</string>
 </resources>
