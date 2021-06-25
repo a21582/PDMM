@@ -3,29 +3,40 @@ package com.ipca.formulaworld
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.facebook.*
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ipca.formulaworld.utils.getSharedPreferences
 import kotlinx.android.synthetic.main.activity_sign_in.*
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.widget.LoginButton
+import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.ktx.auth
 
 class SignInActivity : AppCompatActivity() {
 
-    private lateinit var mAuth: FirebaseAuth
+    private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+
+    private lateinit var callbackManager: CallbackManager
 
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
@@ -41,7 +52,8 @@ class SignInActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.signIn_emailEditText)
         passwordEditText = findViewById(R.id.signIn_passwordEditText)
 
-        // Configure Google Sign In
+        // Google Sign In
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
@@ -49,11 +61,44 @@ class SignInActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        mAuth = FirebaseAuth.getInstance()
+        auth = Firebase.auth
 
         google_login_btn.setOnClickListener {
             googleSignIn()
         }
+
+        // Facebook Login
+
+        // Initialize Facebook SDK
+        FacebookSdk.sdkInitialize(this);
+
+        // Facebook login callback
+
+        // Initialize Facebook Login button
+        callbackManager = CallbackManager.Factory.create()
+
+        val buttonFacebookLogin = findViewById<LoginButton>(R.id.facebook_login_button)
+
+        buttonFacebookLogin.setReadPermissions("email", "public_profile")
+        buttonFacebookLogin.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+            override fun onSuccess(loginResult: LoginResult) {
+                handleFacebookAccessToken(loginResult.accessToken)
+            }
+
+            override fun onCancel() {
+            }
+
+            override fun onError(error: FacebookException) {
+            }
+        })
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        updateUI(currentUser)
     }
 
     fun signIn(view: View) {
@@ -79,7 +124,7 @@ class SignInActivity : AppCompatActivity() {
             return
         }
 
-        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if(task.isSuccessful) {
 
                 val firestoreSetup = FirestoreSetup();
@@ -135,6 +180,9 @@ class SignInActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
+        // Pass the activity result back to the Facebook SDK
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -169,7 +217,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
-        mAuth.signInWithCredential(credential)
+        auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
@@ -210,6 +258,30 @@ class SignInActivity : AppCompatActivity() {
                 .hideSoftInputFromWindow(
                     view.windowToken, 0
                 )
+        }
+    }
+
+    private fun handleFacebookAccessToken(token: AccessToken) {
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    val user = auth.currentUser
+                    updateUI(user)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                    updateUI(null)
+                }
+            }
+    }
+
+    // Change UI according to user data.
+    fun updateUI(user: FirebaseUser?) {
+        if (user != null) {
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 }
