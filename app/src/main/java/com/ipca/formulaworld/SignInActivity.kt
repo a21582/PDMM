@@ -115,13 +115,7 @@ class SignInActivity : AppCompatActivity() {
 
                                 Log.d("IntentUser", firstName)
 
-                                val intent = Intent(this@SignInActivity, ProfileActivity::class.java)
-                                intent.putExtra("firstName", firstName)
-                                intent.putExtra("lastName", lastName)
-                                intent.putExtra("phone", phone)
-                                intent.putExtra("vat", vat)
-                                intent.putExtra("email", email)
-
+                                val intent = Intent(this, MainActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             }
@@ -183,6 +177,7 @@ class SignInActivity : AppCompatActivity() {
 //                    val user = mAuth.currentUser
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.d("SignInFragment", "signInWithCredential:failure")
