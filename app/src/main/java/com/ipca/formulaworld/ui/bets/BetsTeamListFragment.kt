@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.ipca.formulaworld.R
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.model.BetsTeams
 import kotlinx.coroutines.GlobalScope
@@ -56,6 +57,8 @@ class BetsTeamListFragment : Fragment(), BetsTeamAdapter.OnItemClickListener {
     @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activity?.setTitle(R.string.title_bets)
 
         val recyclerView = view.findViewById<RecyclerView>(com.ipca.formulaworld.R.id.recyclerView)
 

@@ -42,6 +42,8 @@ class BetsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        activity?.setTitle(com.ipca.formulaworld.R.string.title_bets)
+
         val spinner = view.findViewById<Spinner>(com.ipca.formulaworld.R.id.spinner)
         if (spinner != null) {
             val adapter = context?.let {

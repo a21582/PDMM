@@ -34,6 +34,8 @@ class CategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        activity?.setTitle(R.string.title_categories)
+
         val listView = view.findViewById<ListView>(R.id.categories_listview)
         listView.divider = null;
 
