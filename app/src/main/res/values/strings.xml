@@ -34,5 +34,6 @@
     <string name="teams">Teams</string>
     <string name="create_new_account">Create new account</string>
     <string name="title_classification">Classification</string>
+    <string name="cars">Cars</string>
 
 </resources>

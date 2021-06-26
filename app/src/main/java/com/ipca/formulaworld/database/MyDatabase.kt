@@ -8,7 +8,7 @@ import com.ipca.formulaworld.Dao.*
 import com.ipca.formulaworld.model.*
 
 
-@Database(entities = [Pilot::class, Team::class, BetsCompetition::class, BetsTeams::class, BetsPlayers::class, Events::class], version = 1)
+@Database(entities = [Pilot::class, Team::class, BetsCompetition::class, BetsTeams::class, BetsPlayers::class, Events::class,Car::class], version = 1)
 abstract class MyDatabase: RoomDatabase() {
     abstract fun pilotDao(): PilotDao
     abstract fun teamDao(): TeamDao
@@ -16,6 +16,7 @@ abstract class MyDatabase: RoomDatabase() {
     abstract fun betsTeamsDao(): BetsTeamsDao
     abstract fun betsPlayersDao(): BetsPlayersDao
     abstract fun eventsDao(): EventsDao
+    abstract fun carDao(): CarDao
     companion object {
         @Volatile private var instance: MyDatabase? = null
         private val LOCK = Any()

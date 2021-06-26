@@ -16,6 +16,7 @@ import com.ipca.formulaworld.R
 import com.ipca.formulaworld.ui.calendar.CalendarFragment
 import com.ipca.formulaworld.ui.calendar.EventsCalendarFragment
 import com.ipca.formulaworld.ui.calendar.EventsFragment
+import com.ipca.formulaworld.ui.car.CarFragment
 import com.ipca.formulaworld.ui.classification.ClassificationFragment
 
 /**
@@ -61,7 +62,9 @@ class CategoriesFragment : Fragment() {
                     ft?.commit()
                 }
                 1 -> {
-                    Log.d("Teste", "Pos 1")
+                    val ft: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
+                    ft?.replace(R.id.fragment_placeholder, CarFragment())
+                    ft?.commit()
                 }
                 2 -> {
                     Log.d("Teste", "Pos 0")

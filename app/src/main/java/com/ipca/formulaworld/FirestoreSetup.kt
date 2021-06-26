@@ -207,5 +207,42 @@ class FirestoreSetup {
             .addOnFailureListener { exception ->
                 Log.w("Bets", "Error getting documents.", exception)
             }
+
+        firestoreDb.collection("cars")
+            .get()
+            .addOnSuccessListener { result ->
+                GlobalScope.launch {
+                    for (document in result) {
+
+                        Log.d("CarId", document.id)
+                        val checkCar = db.carDao().findByObjectId(document.id)
+                        if(checkCar != null) {
+                            // Update data
+                            db.carDao().updateCar(Car(
+                                checkCar.id,
+                                document.id,
+                                document.data["name"].toString(),
+                                document.data["photo"].toString(),
+                                document.data["classification"].toString(),
+                                document.data["year"].toString(),
+                            ))
+                        } else {
+                            db.carDao().insertAll(
+                                Car(
+                                    null,
+                                    document.id,
+                                    document.data["name"].toString(),
+                                    document.data["photo"].toString(),
+                                    document.data["classification"].toString(),
+                                    document.data["year"].toString(),
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Teams", "Error getting documents.", exception)
+            }
     }
 }
