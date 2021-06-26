@@ -175,5 +175,37 @@ class FirestoreSetup {
             .addOnFailureListener { exception ->
                 Log.w("Teams", "Error getting documents.", exception)
             }
+
+        firestoreDb.collection("events")
+            .get()
+            .addOnSuccessListener { result ->
+                GlobalScope.launch {
+                    for (document in result) {
+                        val checkUpdates = db.eventsDao().findByObjectId(document.id)
+                        if (checkUpdates != null) {
+                            // Update
+                        } else {
+                            db.eventsDao().insertAll(
+                                Events(
+                                    null,
+                                    document.id,
+                                    document.data["event_day"].toString(),
+                                    document.data["event_desc"].toString(),
+                                    document.data["simple_date"].toString(),
+                                    document.data["title"].toString(),
+                                    document.data["image"].toString()
+                                )
+                            )
+
+                        }
+
+                    }
+
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Bets", "Error getting documents.", exception)
+            }
     }
 }

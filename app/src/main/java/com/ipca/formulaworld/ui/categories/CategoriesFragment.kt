@@ -13,6 +13,9 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentTransaction
 import com.ipca.formulaworld.MenuOption
 import com.ipca.formulaworld.R
+import com.ipca.formulaworld.ui.calendar.CalendarFragment
+import com.ipca.formulaworld.ui.calendar.EventsCalendarFragment
+import com.ipca.formulaworld.ui.calendar.EventsFragment
 import com.ipca.formulaworld.ui.classification.ClassificationFragment
 
 /**
@@ -67,6 +70,9 @@ class CategoriesFragment : Fragment() {
                     Log.d("Teste", "Pos 1")
                 }
                 4 -> {
+                    val ft: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
+                    ft?.replace(R.id.fragment_placeholder, EventsCalendarFragment())
+                    ft?.commit()
                     Log.d("Teste", "Pos 0")
                 }
             }
