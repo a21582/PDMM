@@ -22,16 +22,17 @@
     <string name="e_mail">E-mail</string>
     <string name="password">Password</string>
 
-    <string name="facebook_app_id">1078741456234485</string>
-    <string name="fb_login_protocol_scheme">fb1078741456234485</string>
-    <string name="first_name">Primeiro nome</string>
-    <string name="last_name">Último nome</string>
-    <string name="update">Atualizar</string>
-    <string name="vat">NIF</string>
-    <string name="phone">Telemóvel</string>
+    <string name="facebook_app_id" translatable="false">1078741456234485</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb1078741456234485</string>
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="update">Update</string>
+    <string name="vat">VAT</string>
+    <string name="phone">Phone</string>
     <string name="bets_fragment">Bets fragment</string>
-    <string name="pilots">Pilotos</string>
-    <string name="teams">Equipas</string>
+    <string name="pilots">Pilots</string>
+    <string name="teams">Teams</string>
     <string name="create_new_account">Create new account</string>
+    <string name="title_classification">Classification</string>
 
 </resources>

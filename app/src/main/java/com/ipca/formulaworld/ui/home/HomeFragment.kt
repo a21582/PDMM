@@ -18,6 +18,7 @@ import com.google.firebase.ktx.Firebase
 import com.ipca.formulaworld.ProfileActivity
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.SignInActivity
+import com.ipca.formulaworld.utils.getSharedPreferences
 
 class HomeFragment : Fragment() {
 
@@ -58,6 +59,23 @@ class HomeFragment : Fragment() {
             // Open user profile's page
 
             val intent = Intent(activity, ProfileActivity::class.java)
+
+            activity?.let { it1 ->
+                val sp = getSharedPreferences(it1.applicationContext)
+
+                val firstName = sp.getString("firstName", "")
+                val lastName = sp.getString("lastName", "")
+                val phone = sp.getString("phone", "")
+                val vat = sp.getString("vat", "")
+                val email = sp.getString("email", "")
+
+                intent.putExtra("firstName", firstName)
+                intent.putExtra("lastName", lastName)
+                intent.putExtra("phone", phone)
+                intent.putExtra("vat", vat)
+                intent.putExtra("email", email)
+            }
+
             startActivity(intent)
         }
     }

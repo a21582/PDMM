@@ -80,12 +80,12 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         } else {
-            Handler().postDelayed({
-                // Google Sign In Tests
+//            Handler().postDelayed({
+                // Redirect to SignIn
                 val intent = Intent(this@MainActivity, SignInActivity::class.java)
                 startActivity(intent)
                 finish()
-            }, 2000)
+//            }, 2000)
         }
 
 

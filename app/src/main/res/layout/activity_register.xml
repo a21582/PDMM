@@ -11,69 +11,129 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
+        <TextView
+            android:id="@+id/register_firstNameLabel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/first_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="50dp"/>
+
         <EditText
             android:id="@+id/register_firstNameEditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/maven_pro_medium"
             android:hint="@string/first_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_firstNameLabel"
+            android:layout_marginTop="6dp" />
+
+        <TextView
+            android:id="@+id/register_lastNameLabel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/last_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="16dp" />
+            app:layout_constraintTop_toBottomOf="@+id/register_firstNameEditText"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/register_lastNameEditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/last_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_firstNameEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/register_lastNameLabel" />
+
+        <TextView
+            android:id="@+id/register_vatLabel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_lastNameEditText"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/register_VatEditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/vat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_lastNameEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/register_vatLabel" />
+
+        <TextView
+            android:id="@+id/register_phoneLabel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_VatEditText"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/register_phoneEditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/phone"
             android:inputType="phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_VatEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/register_phoneLabel" />
+
+        <TextView
+            android:id="@+id/register_emailLabel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/e_mail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_phoneEditText"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/register_emailEditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/e_mail"
             android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_phoneEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/register_emailLabel" />
+
+        <TextView
+            android:id="@+id/register_passwordLabel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_emailEditText"
+            android:layout_marginTop="16dp"/>
 
         <EditText
             android:id="@+id/register_passwordEditText"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:hint="@string/password"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/register_emailEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/register_passwordLabel" />
 
         <Button
             android:id="@+id/register_submitButton"

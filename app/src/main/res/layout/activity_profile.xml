@@ -142,10 +142,11 @@
             android:fontFamily="@font/orbitron_bold"
             android:text="@string/update"
             android:textColor="@color/dark_blue"
+            android:textSize="18sp"
+            android:onClick="updateProfile"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_passwordEditText"
-            android:textSize="18sp"/>
+            app:layout_constraintTop_toBottomOf="@+id/profile_passwordEditText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
