@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.calendar.EventsCalendarFragment"
+    android:background="@color/alice_blue"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginBottom="15dp">
+
+        <Button
+            android:id="@+id/events_button"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/tab_button_background_color"
+            android:textColor="@color/tab_button_text_color"
+            android:text="Evento"/>
+        <Button
+            android:id="@+id/data_button"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/tab_button_background_color"
+            android:textColor="@color/tab_button_text_color"
+            android:text="Data"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

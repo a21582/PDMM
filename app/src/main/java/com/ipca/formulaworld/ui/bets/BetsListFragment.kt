@@ -18,6 +18,7 @@ import com.ipca.formulaworld.model.BetsCompetition
 class BetsListFragment : Fragment() {
     var inputText: String = ""
     val values = mutableListOf<BetsCompetition>()
+    val bundle = Bundle()
 
     private val db by lazy {
         activity?.let {
@@ -61,30 +62,18 @@ class BetsListFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>,
                                         view: View, position: Int, id: Long) {
 
-                val bundle = Bundle()
+                //val bundle = Bundle()
                 bundle.putString("competition", inputText)
 
-                val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
-                val fragmentTwo = BetsTeamListFragment()
-                fragmentTwo.arguments = bundle
-                transaction.replace(com.ipca.formulaworld.R.id.fragment_list_odds, fragmentTwo)
-                transaction.commit()
+                showListTeams()
 
                 when(position) {
                     0 -> {
-                        val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
-                        val fragmentTwo = BetsTeamListFragment()
-                        fragmentTwo.arguments = bundle
-                        transaction.replace(com.ipca.formulaworld.R.id.fragment_list_odds, fragmentTwo)
-                        transaction.commit()
+                        showListTeams()
 
                     }
                     1 -> {
-                        val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
-                        val fragmentTwo = BetsPlayersListFragment()
-                        fragmentTwo.arguments = bundle
-                        transaction.replace(com.ipca.formulaworld.R.id.fragment_list_odds, fragmentTwo)
-                        transaction.commit()
+                        showListPlayers()
                     }
                 }
             }
@@ -92,6 +81,22 @@ class BetsListFragment : Fragment() {
             }
         }
 
+    }
+
+    fun showListTeams(){
+        val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
+        val fragmentTwo = BetsTeamListFragment()
+        fragmentTwo.arguments = bundle
+        transaction.replace(com.ipca.formulaworld.R.id.fragment_list_odds, fragmentTwo)
+        transaction.commit()
+    }
+
+    fun showListPlayers(){
+        val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
+        val fragmentTwo = BetsPlayersListFragment()
+        fragmentTwo.arguments = bundle
+        transaction.replace(com.ipca.formulaworld.R.id.fragment_list_odds, fragmentTwo)
+        transaction.commit()
     }
 
 }
