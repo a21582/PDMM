@@ -19,7 +19,7 @@
 
         <ImageView
             android:contentDescription="@string/news_image"
-            android:id="@+id/news_photo"
+            android:id="@+id/list_news_photo"
             android:layout_width="104dp"
             android:layout_height="104dp"
             android:layout_marginEnd="16dp"
@@ -27,8 +27,8 @@
             android:layout_alignParentTop="true"/>
 
         <TextView
-            android:id="@+id/news_abstract"
-            android:layout_toEndOf="@id/news_photo"
+            android:id="@+id/list_news_inform"
+            android:layout_toEndOf="@id/list_news_photo"
             android:layout_alignParentTop="true"
             android:textSize="18sp"
             android:text="@string/abstract_lorem"
@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"/>
 
         <Button
-            android:id="@+id/news_details"
+            android:id="@+id/list_news_details"
             android:layout_width="98dp"
             android:layout_height="36dp"
             android:text="@string/news_button"

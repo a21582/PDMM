@@ -170,10 +170,48 @@ class FirestoreSetup {
                         )
                     }
                 }
+                }
             }
-        }
             .addOnFailureListener { exception ->
                 Log.w("Teams", "Error getting documents.", exception)
             }
+
+        //News DB
+        firestoreDb.collection("news")
+            .get()
+            .addOnSuccessListener { result ->
+                GlobalScope.launch {
+                    for (document in result) {
+                        Log.d("NewsId", document.id)
+                        val checkNews = db.newsDao().findByObjectId(document.id)
+                        if(checkNews != null) {
+                            // Update data
+                            db.newsDao().updateNews(News(
+                                checkNews.id,
+                                document.id,
+                                document.data["title"].toString(),
+                                document.data["inform"].toString(),
+                                document.data["photo"].toString(),
+                                 document.data["created"].toString().toLong(),
+                            ))
+                        } else {
+                            db.newsDao().insertAll(
+                                News(
+                                    null,
+                                    document.id,
+                                    document.data["title"].toString(),
+                                    document.data["inform"].toString(),
+                                    document.data["photo"].toString(),
+                                    document.data["created"].toString().toLong(),
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("News", "Error getting documents.", exception)
+            }
+
     }
 }

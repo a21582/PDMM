@@ -15,6 +15,7 @@ abstract class MyDatabase: RoomDatabase() {
     abstract fun betsCompetitionDao(): BetsCompetitionDao
     abstract fun betsTeamsDao(): BetsTeamsDao
     abstract fun betsPlayersDao(): BetsPlayersDao
+    abstract fun newsDao(): NewsDao
     companion object {
         @Volatile private var instance: MyDatabase? = null
         private val LOCK = Any()
