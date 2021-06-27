@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         // Firestore
 
-        val firestoreSetup = FirestoreSetup();
-        firestoreSetup.setup(db)
+        val firestoreSetup = FirestoreSetup(db);
+        firestoreSetup.syncAll(db)
 
         auth = Firebase.auth
 

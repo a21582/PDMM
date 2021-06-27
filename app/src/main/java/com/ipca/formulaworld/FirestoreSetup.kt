@@ -1,6 +1,7 @@
 package com.ipca.formulaworld
 
 import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.ipca.formulaworld.database.MyDatabase
@@ -8,12 +9,64 @@ import com.ipca.formulaworld.model.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class FirestoreSetup {
-    fun setup(db: MyDatabase) {
-        val firestoreDb = Firebase.firestore
+class FirestoreSetup(val db: MyDatabase) {
+    var firestoreDb: FirebaseFirestore = Firebase.firestore
 
+    fun syncAll(db: MyDatabase) {
         // Firestore sync
 
+        this.syncNews()
+        this.syncPilots()
+        this.syncTeams()
+        this.syncEvents()
+        this.syncCars()
+        this.syncBetsCompetitions()
+        this.syncBetsTeams()
+        this.syncBetsPlayers()
+    }
+
+    // Sync Firestore news with SQLite
+    fun syncNews() {
+        //News DB
+        firestoreDb.collection("news")
+            .get()
+            .addOnSuccessListener { result ->
+                GlobalScope.launch {
+                    for (document in result) {
+                        Log.d("NewsId", document.id)
+                        val checkNews = db.newsDao().findByObjectId(document.id)
+                        if(checkNews != null) {
+                            // Update data
+                            db.newsDao().updateNews(News(
+                                checkNews.id,
+                                document.id,
+                                document.data["title"].toString(),
+                                document.data["body"].toString(),
+                                document.data["photo"].toString(),
+                                document.data["created"].toString(),
+                            ))
+                        } else {
+                            db.newsDao().insertAll(
+                                News(
+                                    null,
+                                    document.id,
+                                    document.data["title"].toString(),
+                                    document.data["body"].toString(),
+                                    document.data["photo"].toString(),
+                                    document.data["created"].toString(),
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("News", "Error getting documents.", exception)
+            }
+    }
+
+    // Sync Firestore pilots with SQLite
+    fun syncPilots() {
         firestoreDb.collection("pilots")
             .get()
             .addOnSuccessListener { result ->
@@ -50,159 +103,36 @@ class FirestoreSetup {
             .addOnFailureListener { exception ->
                 Log.w("Pilots", "Error getting documents.", exception)
             }
+    }
 
-        firestoreDb.collection("bets_competition")
-            .get()
-            .addOnSuccessListener { result ->
-                GlobalScope.launch {
-                    for (document in result) {
-                        val checkUpdates = db.betsCompetitionDao().findByObjectId(document.id)
-                        if (checkUpdates != null) {
-                            // Update
-                        } else {
-                            db.betsCompetitionDao().insertAll(
-                                BetsCompetition(
-                                    null,
-                                    document.id,
-                                    document.data["competition"].toString()
-                                )
-                            )
-
-                        }
-
-                    }
-
-
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("Bets", "Error getting documents.", exception)
-            }
-
-        firestoreDb.collection("bets_teams")
-            .get()
-            .addOnSuccessListener { result ->
-                GlobalScope.launch {
-                    for (document in result) {
-                        val checkUpdates = db.betsTeamsDao().findByObjectId(document.id)
-                        if (checkUpdates != null) {
-                            // Update
-                        } else {
-                            db.betsTeamsDao().insertAll(
-                                BetsTeams(
-                                    null,
-                                    document.id,
-                                    document.data["competition"].toString(),
-                                    document.data["team"].toString(),
-                                    document.data["odd"].toString()
-                                )
-                            )
-
-                        }
-
-                    }
-
-
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("Bets", "Error getting documents.", exception)
-            }
-
-        firestoreDb.collection("bets_player")
-            .get()
-            .addOnSuccessListener { result ->
-                GlobalScope.launch {
-                    for (document in result) {
-                        val checkUpdates = db.betsPlayersDao().findByObjectId(document.id)
-                        if (checkUpdates != null) {
-                            // Update
-                        } else {
-                            db.betsPlayersDao().insertAll(
-                                BetsPlayers(
-                                    null,
-                                    document.id,
-                                    document.data["competition"].toString(),
-                                    document.data["player"].toString(),
-                                    document.data["odd"].toString(),
-                                )
-                            )
-
-                        }
-
-                    }
-
-
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("Bets", "Error getting documents.", exception)
-            }
-
-
+    // Sync Firestore teams with SQLite
+    fun syncTeams() {
         firestoreDb.collection("teams")
             .get()
             .addOnSuccessListener { result ->
-                    GlobalScope.launch {
-                        for (document in result) {
-                    Log.d("TeamId", document.id)
-                    val checkTeam = db.teamDao().findByObjectId(document.id)
-                    if(checkTeam != null) {
-                        // Update data
-                        db.teamDao().updateTeam(Team(
-                            checkTeam.id,
-                            document.id,
-                            document.data["name"].toString(),
-                            document.data["photo"].toString(),
-                            document.data["classification"].toString(),
-                            document.data["year"].toString(),
-                        ))
-                    } else {
-                        db.teamDao().insertAll(
-                            Team(
-                                null,
+                GlobalScope.launch {
+                    for (document in result) {
+                        Log.d("TeamId", document.id)
+                        val checkTeam = db.teamDao().findByObjectId(document.id)
+                        if(checkTeam != null) {
+                            // Update data
+                            db.teamDao().updateTeam(Team(
+                                checkTeam.id,
                                 document.id,
                                 document.data["name"].toString(),
                                 document.data["photo"].toString(),
                                 document.data["classification"].toString(),
                                 document.data["year"].toString(),
-                            )
-                        )
-                    }
-                }
-            }
-        }
-            .addOnFailureListener { exception ->
-                Log.w("Teams", "Error getting documents.", exception)
-            }
-
-        //News DB
-        firestoreDb.collection("news")
-            .get()
-            .addOnSuccessListener { result ->
-                GlobalScope.launch {
-                    for (document in result) {
-                        Log.d("NewsId", document.id)
-                        val checkNews = db.newsDao().findByObjectId(document.id)
-                        if(checkNews != null) {
-                            // Update data
-                            db.newsDao().updateNews(News(
-                                checkNews.id,
-                                document.id,
-                                document.data["title"].toString(),
-                                document.data["inform"].toString(),
-                                document.data["photo"].toString(),
-                                document.data["created"].toString(),
                             ))
                         } else {
-                            db.newsDao().insertAll(
-                                News(
+                            db.teamDao().insertAll(
+                                Team(
                                     null,
                                     document.id,
-                                    document.data["title"].toString(),
-                                    document.data["inform"].toString(),
+                                    document.data["name"].toString(),
                                     document.data["photo"].toString(),
-                                    document.data["created"].toString(),
+                                    document.data["classification"].toString(),
+                                    document.data["year"].toString(),
                                 )
                             )
                         }
@@ -210,9 +140,12 @@ class FirestoreSetup {
                 }
             }
             .addOnFailureListener { exception ->
-                Log.w("News", "Error getting documents.", exception)
+                Log.w("Teams", "Error getting documents.", exception)
             }
+    }
 
+    // Sync Firestore events with SQLite
+    fun syncEvents() {
         firestoreDb.collection("events")
             .get()
             .addOnSuccessListener { result ->
@@ -244,7 +177,10 @@ class FirestoreSetup {
             .addOnFailureListener { exception ->
                 Log.w("Events", "Error getting documents.", exception)
             }
+    }
 
+    // Sync Firestore cars with SQLite
+    fun syncCars() {
         firestoreDb.collection("cars")
             .get()
             .addOnSuccessListener { result ->
@@ -280,6 +216,103 @@ class FirestoreSetup {
             }
             .addOnFailureListener { exception ->
                 Log.w("Cars", "Error getting documents.", exception)
+            }
+    }
+
+    // Sync Firestore competitions bets with SQLite
+    fun syncBetsCompetitions() {
+        firestoreDb.collection("bets_competition")
+            .get()
+            .addOnSuccessListener { result ->
+                GlobalScope.launch {
+                    for (document in result) {
+                        val checkUpdates = db.betsCompetitionDao().findByObjectId(document.id)
+                        if (checkUpdates != null) {
+                            // Update
+                        } else {
+                            db.betsCompetitionDao().insertAll(
+                                BetsCompetition(
+                                    null,
+                                    document.id,
+                                    document.data["competition"].toString()
+                                )
+                            )
+
+                        }
+
+                    }
+
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Bets", "Error getting documents.", exception)
+            }
+    }
+
+    // Sync Firestore teams bets with SQLite
+    fun syncBetsTeams() {
+        firestoreDb.collection("bets_teams")
+            .get()
+            .addOnSuccessListener { result ->
+                GlobalScope.launch {
+                    for (document in result) {
+                        val checkUpdates = db.betsTeamsDao().findByObjectId(document.id)
+                        if (checkUpdates != null) {
+                            // Update
+                        } else {
+                            db.betsTeamsDao().insertAll(
+                                BetsTeams(
+                                    null,
+                                    document.id,
+                                    document.data["competition"].toString(),
+                                    document.data["team"].toString(),
+                                    document.data["odd"].toString()
+                                )
+                            )
+
+                        }
+
+                    }
+
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Bets", "Error getting documents.", exception)
+            }
+    }
+
+    // Sync Firestore players bets with SQLite
+    fun syncBetsPlayers() {
+        firestoreDb.collection("bets_player")
+            .get()
+            .addOnSuccessListener { result ->
+                GlobalScope.launch {
+                    for (document in result) {
+                        val checkUpdates = db.betsPlayersDao().findByObjectId(document.id)
+                        if (checkUpdates != null) {
+                            // Update
+                        } else {
+                            db.betsPlayersDao().insertAll(
+                                BetsPlayers(
+                                    null,
+                                    document.id,
+                                    document.data["competition"].toString(),
+                                    document.data["player"].toString(),
+                                    document.data["odd"].toString(),
+                                )
+                            )
+
+                        }
+
+                    }
+
+
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w("Bets", "Error getting documents.", exception)
             }
     }
 }
