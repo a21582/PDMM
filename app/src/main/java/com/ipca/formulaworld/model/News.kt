@@ -15,7 +15,7 @@ data class News(
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "inform") val inform: String,
     @ColumnInfo(name = "photo") val photo: String,
-    @ColumnInfo(name = "created") val created: Long){
+    @ColumnInfo(name = "created") val created: String){
     @Ignore
     var image: Bitmap? = null
 }

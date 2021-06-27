@@ -16,6 +16,7 @@ import com.ipca.formulaworld.ui.bets.BetsCompetitionFragment
 import com.ipca.formulaworld.ui.categories.CategoriesFragment
 import com.ipca.formulaworld.ui.home.HomeFragment
 import com.ipca.formulaworld.ui.more.MoreFragment
+import com.ipca.formulaworld.ui.news.NewsFragment
 import com.ipca.formulaworld.ui.store.StoreFragment
 
 class MainActivity : AppCompatActivity() {
@@ -93,7 +94,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun openHomeFragment() {
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, HomeFragment())
+        ft.replace(R.id.fragment_placeholder, NewsFragment()).addToBackStack(null)
         ft.commit()
     }
 

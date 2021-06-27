@@ -192,7 +192,7 @@ class FirestoreSetup {
                                 document.data["title"].toString(),
                                 document.data["inform"].toString(),
                                 document.data["photo"].toString(),
-                                 document.data["created"].toString().toLong(),
+                                document.data["created"].toString(),
                             ))
                         } else {
                             db.newsDao().insertAll(
@@ -202,7 +202,7 @@ class FirestoreSetup {
                                     document.data["title"].toString(),
                                     document.data["inform"].toString(),
                                     document.data["photo"].toString(),
-                                    document.data["created"].toString().toLong(),
+                                    document.data["created"].toString(),
                                 )
                             )
                         }

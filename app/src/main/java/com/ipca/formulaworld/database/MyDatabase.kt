@@ -8,7 +8,16 @@ import com.ipca.formulaworld.Dao.*
 import com.ipca.formulaworld.model.*
 
 
-@Database(entities = [Pilot::class, Team::class, BetsCompetition::class, BetsTeams::class, BetsPlayers::class, Events::class,Car::class], version = 1)
+@Database(entities = [
+    News::class,
+    Pilot::class,
+    Team::class,
+    BetsCompetition::class,
+    BetsTeams::class,
+    BetsPlayers::class,
+    Events::class,
+    Car::class
+], version = 1)
 abstract class MyDatabase: RoomDatabase() {
     abstract fun pilotDao(): PilotDao
     abstract fun teamDao(): TeamDao

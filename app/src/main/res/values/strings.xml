@@ -29,11 +29,11 @@
     <string name="update">Update</string>
     <string name="vat">VAT</string>
     <string name="phone">Phone</string>
-    <string name="bets_fragment">Bets fragment</string>
     <string name="pilots">Pilots</string>
     <string name="teams">Teams</string>
     <string name="create_new_account">Create new account</string>
     <string name="title_classification">Classification</string>
     <string name="cars">Cars</string>
+    <string name="more_button">More</string>
 
 </resources>
