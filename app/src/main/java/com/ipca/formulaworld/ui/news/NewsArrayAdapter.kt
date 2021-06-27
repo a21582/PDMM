@@ -1,24 +1,13 @@
 package com.ipca.formulaworld.ui.news
 
-
-import android.content.Context
-import android.graphics.BitmapFactory
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
-import com.ipca.formulaworld.R
-import com.ipca.formulaworld.MenuOption
 import com.ipca.formulaworld.model.News
-import com.ipca.formulaworld.model.Pilot
-import com.ipca.formulaworld.ui.classification.ClassificationViewHolder
-import java.net.URL
 
-class NewsArrayAdapter(val mList: MutableList<News>) : RecyclerView.Adapter<NewsViewHolder>() {
+
+class NewsArrayAdapter(val mList: MutableList<News>, private val onItemClicked: (News) -> Unit) : RecyclerView.Adapter<NewsViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return NewsViewHolder(inflater, parent)
@@ -30,6 +19,10 @@ class NewsArrayAdapter(val mList: MutableList<News>) : RecyclerView.Adapter<News
         var newsImage = mList[position].image
 
         holder.bindData(newsTitle, newsDescription, newsImage)
+
+        holder.button.setOnClickListener {
+            onItemClicked(mList[position])
+        }
     }
 
     override fun getItemCount(): Int {

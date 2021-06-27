@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,8 +16,7 @@ import androidx.room.Room
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.model.News
-import com.ipca.formulaworld.ui.classification.ClassificationPilotsArrayAdapter
-import com.ipca.formulaworld.ui.classification.ClassificationTeamsArrayAdapter
+import com.ipca.formulaworld.ui.details.DetailsFragment
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.URL
@@ -78,7 +78,13 @@ class NewsFragment : Fragment() {
             }
 
             activity?.runOnUiThread {
-                newsAdapter = NewsArrayAdapter(newsValues)
+                newsAdapter = NewsArrayAdapter(newsValues) {
+                    Log.d("ClickNews", "Teste2")
+
+                    val ft: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
+                    ft?.replace(R.id.fragment_placeholder, DetailsFragment.newInstance(it.title, it.body))?.addToBackStack(null)
+                    ft?.commit()
+                }
                 newsRecyclerView.adapter = newsAdapter
             }
         }
