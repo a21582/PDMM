@@ -6,9 +6,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.FirebaseError
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -66,6 +69,27 @@ class ProfileActivity : AppCompatActivity() {
         phoneEditText.setText(phone)
         vatEditText.setText(vat)
         emailEditText.text = email
+
+        val signOutButton = findViewById<Button>(R.id.google_logout_btn)
+
+        signOutButton.setOnClickListener {
+            Log.d("Logout", "Logout")
+
+            Firebase.auth.signOut()
+
+            // Sign out from GoogleSignInClient, so the user can sign in with a different Google account
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(this.getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+
+            val googleSignInClient = GoogleSignIn.getClient(this, gso)
+            googleSignInClient.signOut()
+
+//            val intent = Intent(activity, SignInActivity::class.java)
+//            startActivity(intent)
+            finish()
+        }
     }
 
     fun updateProfile(view: View) {

@@ -148,6 +148,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_passwordEditText" />
 
+        <Button
+            android:id="@+id/google_logout_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/orbitron_bold"
+            android:text="@string/sign_out"
+            android:textColor="@color/grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_submitButton" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

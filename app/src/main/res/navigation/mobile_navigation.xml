@@ -18,12 +18,6 @@
         tools:layout="@layout/fragment_categories" />
 
     <fragment
-        android:id="@+id/navigation_store"
-        android:name="com.ipca.formulaworld.ui.store.StoreFragment"
-        android:label="@string/title_store"
-        tools:layout="@layout/fragment_store" />
-
-    <fragment
         android:id="@+id/navigation_bets"
         android:name="com.ipca.formulaworld.ui.bets.BetsFragment"
         android:label="@string/title_bets"
@@ -33,5 +27,11 @@
         android:id="@+id/navigation_more"
         android:name="com.ipca.formulaworld.ui.more.MoreFragment"
         android:label="@string/title_more"
+        tools:layout="@layout/fragment_more" />
+
+    <fragment
+        android:id="@+id/navigation_user"
+        android:name="com.ipca.formulaworld.ui.more.MoreFragment"
+        android:label="User"
         tools:layout="@layout/fragment_more" />
 </navigation>

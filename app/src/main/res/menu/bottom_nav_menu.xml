@@ -12,11 +12,6 @@
         android:title="@string/title_categories" />
 
     <item
-        android:id="@+id/navigation_store"
-        android:icon="@drawable/ic_shopping_bag"
-        android:title="@string/title_store" />
-
-    <item
         android:id="@+id/navigation_bets"
         android:icon="@drawable/ic_bets"
         android:title="@string/title_bets" />
@@ -25,5 +20,10 @@
         android:id="@+id/navigation_more"
         android:icon="@drawable/ic_three_dots"
         android:title="@string/title_more" />
+
+    <item
+        android:id="@+id/navigation_user"
+        android:icon="@drawable/ic_user"
+        android:title="@string/title_user" />
 
 </menu>

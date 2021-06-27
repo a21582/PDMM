@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        navigationView = findViewById(R.id.nav_view)
         // Firestore
 
         val firestoreSetup = FirestoreSetup(db);
@@ -53,8 +54,7 @@ class MainActivity : AppCompatActivity() {
         // Check if the user is signed in
         val user = auth.currentUser
 
-        if (user != null) {
-            navigationView = findViewById(R.id.nav_view)
+//        if (user != null) {
             navigationView.setOnNavigationItemSelectedListener { item ->
                 when(item.itemId) {
                     R.id.navigation_home -> {
@@ -65,10 +65,6 @@ class MainActivity : AppCompatActivity() {
                         openCategoriesFragment()
                         true
                     }
-                    R.id.navigation_store -> {
-                        openStoreFragment()
-                        true
-                    }
                     R.id.navigation_bets -> {
                         openBetsFragment()
                         true
@@ -77,48 +73,68 @@ class MainActivity : AppCompatActivity() {
                         openMoreFragment()
                         true
                     }
+                    R.id.navigation_user -> {
+                        openUserFragment()
+                        true
+                    }
                     else -> super.onOptionsItemSelected(item)
                 }
             }
-        } else {
-//            Handler().postDelayed({
-                // Redirect to SignIn
-                val intent = Intent(this@MainActivity, SignInActivity::class.java)
-                startActivity(intent)
-                finish()
-//            }, 2000)
+//        } else {
+//                // Redirect to SignIn
+//                val intent = Intent(this@MainActivity, SignInActivity::class.java)
+//                startActivity(intent)
+//                finish()
+//        }
         }
 
 
     }
 
     private fun openHomeFragment() {
+        navigationView.menu.findItem(R.id.navigation_home).isChecked = true
+
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
         ft.replace(R.id.fragment_placeholder, NewsFragment()).addToBackStack(null)
         ft.commit()
     }
 
     private fun openCategoriesFragment() {
-        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, CategoriesFragment())
-        ft.commit()
-    }
+        navigationView.menu.findItem(R.id.navigation_categories).isChecked = true
 
-    private fun openStoreFragment() {
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, StoreFragment())
+        ft.replace(R.id.fragment_placeholder, CategoriesFragment()).addToBackStack(null)
         ft.commit()
     }
 
     private fun openBetsFragment() {
+        navigationView.menu.findItem(R.id.navigation_bets).isChecked = true
+
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, BetsCompetitionFragment())
+        ft.replace(R.id.fragment_placeholder, BetsCompetitionFragment()).addToBackStack(null)
         ft.commit()
     }
 
     private fun openMoreFragment() {
+        navigationView.menu.findItem(R.id.navigation_more).isChecked = true
+
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, MoreFragment())
+        ft.replace(R.id.fragment_placeholder, MoreFragment()).addToBackStack(null)
         ft.commit()
+    }
+
+    private fun openUserFragment() {
+        navigationView.menu.findItem(R.id.navigation_user).isChecked = true
+
+        // If the user is logged in, show profile
+        // Otherwise, show login page
+
+        val currentUser = auth.currentUser
+
+        if (currentUser != null) {
+            startActivity(Intent(this, ProfileActivity::class.java))
+        } else {
+            startActivity(Intent(this, SignInActivity::class.java))
+        }
     }
 }
