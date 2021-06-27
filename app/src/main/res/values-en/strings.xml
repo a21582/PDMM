@@ -13,4 +13,6 @@
     <string name="last_name">Last name</string>
     <string name="first_name">Last name</string>
     <string name="news_button">more...</string>
+    <string name="more_button">More</string>
+    <string name="cars">Cars</string>
 </resources>

@@ -127,7 +127,6 @@ class SignInActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             if(task.isSuccessful) {
 
-                val firestoreSetup = FirestoreSetup();
                 val sp = getSharedPreferences(this.applicationContext)
 
                 task.result.user?.uid?.let { uId ->

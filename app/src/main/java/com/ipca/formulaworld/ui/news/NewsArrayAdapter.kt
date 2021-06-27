@@ -10,21 +10,33 @@ import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Button
+import androidx.recyclerview.widget.RecyclerView
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.MenuOption
 import com.ipca.formulaworld.model.News
+import com.ipca.formulaworld.model.Pilot
+import com.ipca.formulaworld.ui.classification.ClassificationViewHolder
 import java.net.URL
 
-class NewsArrayAdapter(context: Context, list: MutableList<News>) : ArrayAdapter<News>(context, -1) {
-    val mList: MutableList<News> = list
-
-    override fun getItem(position: Int): News? {
-        return mList.get(position)
+class NewsArrayAdapter(val mList: MutableList<News>) : RecyclerView.Adapter<NewsViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return NewsViewHolder(inflater, parent)
     }
-    override fun getCount(): Int {
+
+    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
+        var newsTitle = mList[position].title
+        var newsDescription = mList[position].body
+        var newsImage = mList[position].image
+
+        holder.bindData(newsTitle, newsDescription, newsImage)
+    }
+
+    override fun getItemCount(): Int {
         return mList.count()
     }
 
+    /*
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: View
         val vh: MyViewHolder
@@ -57,4 +69,5 @@ class NewsArrayAdapter(context: Context, list: MutableList<News>) : ArrayAdapter
         val inform = view?.findViewById<TextView>(R.id.list_news_inform)
         val detail = view?.findViewById<Button>(R.id.list_news_details)
     }
+     */
 }
