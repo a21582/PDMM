@@ -35,5 +35,6 @@
     <string name="create_new_account">Create new account</string>
     <string name="title_classification">Classification</string>
     <string name="cars">Cars</string>
+    <string name="news_button">...</string>
 
 </resources>
