@@ -13,7 +13,7 @@ data class News(
     @PrimaryKey(autoGenerate = true) val id: Int? = 0,
     @ColumnInfo(name = "object_id") val objectId: String,
     @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "inform") val inform: String,
+    @ColumnInfo(name = "body") val body: String,
     @ColumnInfo(name = "photo") val photo: String,
     @ColumnInfo(name = "created") val created: String){
     @Ignore

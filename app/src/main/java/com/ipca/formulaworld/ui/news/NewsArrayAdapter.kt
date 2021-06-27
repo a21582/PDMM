@@ -26,7 +26,7 @@ class NewsArrayAdapter(val mList: MutableList<News>) : RecyclerView.Adapter<News
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
         var newsTitle = mList[position].title
-        var newsDescription = mList[position].inform
+        var newsDescription = mList[position].body
         var newsImage = mList[position].image
 
         holder.bindData(newsTitle, newsDescription, newsImage)
