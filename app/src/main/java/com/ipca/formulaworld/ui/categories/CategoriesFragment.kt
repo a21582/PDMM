@@ -16,6 +16,7 @@ import com.ipca.formulaworld.R
 import com.ipca.formulaworld.ui.calendar.CalendarFragment
 import com.ipca.formulaworld.ui.calendar.EventsCalendarFragment
 import com.ipca.formulaworld.ui.calendar.EventsFragment
+import com.ipca.formulaworld.ui.car.CarFragment
 import com.ipca.formulaworld.ui.classification.ClassificationFragment
 
 /**
@@ -36,6 +37,8 @@ class CategoriesFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activity?.setTitle(R.string.title_categories)
 
         val listView = view.findViewById<ListView>(R.id.categories_listview)
         listView.divider = null;
@@ -61,7 +64,9 @@ class CategoriesFragment : Fragment() {
                     ft?.commit()
                 }
                 1 -> {
-                    Log.d("Teste", "Pos 1")
+                    val ft: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
+                    ft?.replace(R.id.fragment_placeholder, CarFragment())
+                    ft?.commit()
                 }
                 2 -> {
                     Log.d("Teste", "Pos 0")

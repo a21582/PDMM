@@ -58,6 +58,8 @@ class ClassificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        activity?.setTitle(R.string.title_classification)
+
         // List divider
         val itemDecoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         activity?.getDrawable(R.drawable.divider)?.let { itemDecoration.setDrawable(it) }

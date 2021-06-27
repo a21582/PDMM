@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.google.firebase.database.DatabaseReference
+import com.ipca.formulaworld.R
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.model.BetsCompetition
 import com.mancj.materialsearchbar.MaterialSearchBar
@@ -69,6 +70,8 @@ class BetsCompetitionFragment : Fragment(){
     @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activity?.setTitle(R.string.title_bets)
 
         val recyclerView = view.findViewById<RecyclerView>(com.ipca.formulaworld.R.id.userlist)
 

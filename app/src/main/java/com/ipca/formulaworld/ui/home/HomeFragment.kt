@@ -31,6 +31,10 @@ class HomeFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        activity?.setTitle(R.string.app_name)
+
         val signOutButton = view.findViewById<Button>(R.id.google_logout_btn)
 
         signOutButton.setOnClickListener {

@@ -32,6 +32,8 @@ class MoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        activity?.setTitle(R.string.title_more)
+
 //        val recyclerView = view.findViewById<RecyclerView>(R.id.main_recyclerview)
 
         val listView = view.findViewById<ListView>(R.id.more_listview)

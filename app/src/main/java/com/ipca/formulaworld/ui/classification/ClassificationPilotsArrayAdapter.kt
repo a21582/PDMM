@@ -27,6 +27,7 @@ class ClassificationPilotsArrayAdapter(val mList: MutableList<Pilot>) : Recycler
 
         holder.bindData(pilotName, pilotImage)
     }
+
      override fun getItemCount(): Int {
         return mList.size
     }

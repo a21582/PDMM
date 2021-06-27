@@ -1,4 +1,4 @@
-package com.ipca.formulaworld.ui.news
+package com.ipca.formulaworld.ui.car
 
 import android.graphics.BitmapFactory
 import android.os.Bundle
@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentTransaction
+import android.widget.Button
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,21 +15,24 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.database.MyDatabase
-import com.ipca.formulaworld.model.News
-import com.ipca.formulaworld.ui.details.DetailsFragment
+import com.ipca.formulaworld.model.Car
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.URL
 
+
 /**
  * A simple [Fragment] subclass.
- * Use the [NewsFragment.newInstance] factory method to
+ * Use the [CarFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class NewsFragment : Fragment() {
+class CarFragment : Fragment() {
 
-    private lateinit var newsRecyclerView: RecyclerView
-    private lateinit var newsAdapter: NewsArrayAdapter
+
+    private lateinit var carsButton: Button
+
+    private lateinit var carsRecyclerView: RecyclerView
+
 
     private val db by lazy {
         activity?.let {
@@ -40,13 +43,16 @@ class NewsFragment : Fragment() {
         }
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_news, container, false)
+        return inflater.inflate(R.layout.fragment_car, container, false)
     }
+
+    private lateinit var carsAdapter: CarArrayAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,38 +61,61 @@ class NewsFragment : Fragment() {
         val itemDecoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         activity?.getDrawable(R.drawable.divider)?.let { itemDecoration.setDrawable(it) }
 
-        // News List
-        newsRecyclerView = view.findViewById(R.id.news_list)
-        newsRecyclerView.addItemDecoration(itemDecoration)
+        // Pilots List
+        carsRecyclerView = view.findViewById<RecyclerView>(R.id.classification_cars_list)
+        carsRecyclerView.addItemDecoration(itemDecoration)
 
-        val newsLinearLayoutManager = LinearLayoutManager(context)
-        newsLinearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        newsRecyclerView.layoutManager = newsLinearLayoutManager
-        newsRecyclerView.itemAnimator = DefaultItemAnimator()
+        val pilotsLinearLayoutManager = LinearLayoutManager(context)
+        pilotsLinearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        carsRecyclerView.layoutManager = pilotsLinearLayoutManager
+        carsRecyclerView.itemAnimator = DefaultItemAnimator()
+
+        // Teams List
+
+
 
         GlobalScope.launch {
-            // Update news list
-            val newsValues = mutableListOf<News>()
-            val news = db?.newsDao()?.getAllNewsByCreated()
-            news?.forEach {
+            // Update pilots list
+            val carsValues = mutableListOf<Car>()
+            val cars = db?.carDao()?.getAllOrderByCar()
+            cars?.forEach {
+                Log.d("Pilot", it.name)
                 val url = URL(it.photo)
                 val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
 
                 it.image = bmp
 
-                newsValues.add(it)
+                carsValues.add(it)
             }
+
+            // Update teams list
+
 
             activity?.runOnUiThread {
-                newsAdapter = NewsArrayAdapter(newsValues) {
-                    Log.d("ClickNews", "Teste2")
+                carsAdapter = CarArrayAdapter(carsValues)
+                carsRecyclerView.adapter = carsAdapter
 
-                    val ft: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
-                    ft?.replace(R.id.fragment_placeholder, DetailsFragment.newInstance(it.title, it.body))?.addToBackStack(null)
-                    ft?.commit()
-                }
-                newsRecyclerView.adapter = newsAdapter
+
             }
         }
+        carsButton = view.findViewById<Button>(R.id.classification_cars_button)
+
+        showCarsList()
+
+        carsButton.setOnClickListener {
+            if(!carsButton.isSelected) {
+                showCarsList()
+            }
+        }
+
+
+
+    }
+    private fun showCarsList() {
+        carsButton.isSelected = true
+
+
+        carsRecyclerView.visibility = View.VISIBLE
+
     }
 }
