@@ -1,6 +1,7 @@
 package com.ipca.formulaworld.ui.bets
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -15,8 +16,12 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.ktx.Firebase
 import com.ipca.formulaworld.R
+import com.ipca.formulaworld.SignInActivity
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.model.BetsCompetition
 import com.mancj.materialsearchbar.MaterialSearchBar
@@ -25,7 +30,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
-class BetsCompetitionFragment : Fragment(){
+class BetsCompetitionFragment : Fragment() {
+
+    private lateinit var auth: FirebaseAuth
 
     val values = mutableListOf<BetsCompetition>()
     private lateinit var mAdapter: BetsCompetitionAdapter
@@ -36,6 +43,19 @@ class BetsCompetitionFragment : Fragment(){
                 it.applicationContext,
                 MyDatabase::class.java, "formulaworld.db"
             ).build()
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Check if the user is signed in
+        auth = Firebase.auth
+        val user = auth.currentUser
+
+        if (user == null) {
+            val intent = Intent(activity, SignInActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -64,7 +84,6 @@ class BetsCompetitionFragment : Fragment(){
         transaction.commit()
 
     }
-
 
     @RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("WrongConstant")

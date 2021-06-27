@@ -14,10 +14,8 @@ import com.google.firebase.ktx.Firebase
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.ui.bets.BetsCompetitionFragment
 import com.ipca.formulaworld.ui.categories.CategoriesFragment
-import com.ipca.formulaworld.ui.home.HomeFragment
 import com.ipca.formulaworld.ui.more.MoreFragment
 import com.ipca.formulaworld.ui.news.NewsFragment
-import com.ipca.formulaworld.ui.store.StoreFragment
 
 class MainActivity : AppCompatActivity() {
 
