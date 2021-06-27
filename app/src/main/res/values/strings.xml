@@ -4,21 +4,11 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_categories">Categories</string>
-    <string name="title_store">Store</string>
     <string name="title_bets">Bets</string>
     <string name="title_more">More</string>
     <string name="sign_in">Login</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_map">MapActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="e_mail">E-mail</string>
     <string name="password">Password</string>
 
@@ -36,5 +26,7 @@
     <string name="cars">Cars</string>
     <string name="news_button">...</string>
     <string name="more_button">More</string>
+    <string name="title_user">User</string>
+    <string name="sign_out">Sign out</string>
 
 </resources>
