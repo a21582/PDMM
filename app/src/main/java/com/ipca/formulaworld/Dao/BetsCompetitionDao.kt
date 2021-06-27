@@ -2,6 +2,7 @@ package com.ipca.formulaworld.Dao
 
 import androidx.room.*
 import com.ipca.formulaworld.model.BetsCompetition
+import com.ipca.formulaworld.model.Team
 
 @Dao
 interface BetsCompetitionDao {
@@ -15,4 +16,6 @@ interface BetsCompetitionDao {
     fun findByCompetitionId(id: String): List<BetsCompetition>
     @Insert
     fun insertAll(vararg bets: BetsCompetition)
+    @Update
+    fun updateBetsCompetitions(vararg bets: BetsCompetition)
 }

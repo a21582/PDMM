@@ -3,7 +3,9 @@ package com.ipca.formulaworld.Dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.ipca.formulaworld.model.Events
+import com.ipca.formulaworld.model.Team
 
 @Dao
 interface EventsDao {
@@ -15,4 +17,6 @@ interface EventsDao {
     fun findByDate(id: String): Events
     @Insert
     fun insertAll(vararg events: Events)
+    @Update
+    fun updateEvents(vararg events: Events)
 }

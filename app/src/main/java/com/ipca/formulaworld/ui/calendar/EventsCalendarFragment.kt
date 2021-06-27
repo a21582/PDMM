@@ -32,7 +32,6 @@ class EventsCalendarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
         // Tab buttons click events (switch between lists)
         eventsButton = view.findViewById<Button>(com.ipca.formulaworld.R.id.events_button)
         calendarButton = view.findViewById<Button>(com.ipca.formulaworld.R.id.data_button)

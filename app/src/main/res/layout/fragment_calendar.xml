@@ -15,28 +15,41 @@
     </CalendarView>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="100dp"
         android:layout_height="match_parent"
         android:layout_below="@id/calendar"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="0dp"
         tools:ignore="MissingConstraints">
 
-    <TextView
-        android:id="@+id/eventDay"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/calendar"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_gravity="left|center_horizontal"
-        android:textColor="@color/orange"
-        android:textSize="50sp"
-        android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dateDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:textColor="@color/orange"
+            android:textSize="50sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/dateMoth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="55dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/dateDay"
+            android:textColor="@color/orange"
+            android:textSize="28sp"
+            android:textStyle="bold"/>
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/eventDesc"
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/calendar"
-        android:layout_gravity="right"/>
-    </androidx.cardview.widget.CardView>
+        android:layout_marginTop="7dp"
+        android:layout_gravity="right"
+        android:layout_alignParentRight="true"/>
 </RelativeLayout>

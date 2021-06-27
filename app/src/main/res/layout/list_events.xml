@@ -6,22 +6,39 @@
     android:layout_height="match_parent"
     tools:context="com.ipca.formulaworld.ui.calendar.EventsFragment"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/date"
+
+    <androidx.cardview.widget.CardView
         android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:textColor="@color/orange"
-        android:textSize="50sp"
-        android:textStyle="bold"/>
+        android:layout_height="140dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="0dp"
+        tools:ignore="MissingConstraints">
+        <TextView
+            android:id="@+id/dateDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center_horizontal"
+            android:textColor="@color/orange"
+            android:textSize="50sp"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/dateMoth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_below="@id/dateDay"
+            android:textColor="@color/orange"
+            android:textSize="28sp"
+            android:textStyle="bold"/>
+    </androidx.cardview.widget.CardView>
 
     <View
         android:layout_width="5dp"
         android:layout_height="210dp"
         android:background="@color/grey"
-        android:layout_marginLeft="147dp"
+        android:layout_marginLeft="127dp"
         />
 
     <ImageView
@@ -29,21 +46,22 @@
         android:src="@drawable/circle2"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="129dp"
+        android:layout_marginLeft="110dp"
         android:layout_marginTop="16dp"
         android:color="@color/dark_blue"/>
 
 
 <androidx.cardview.widget.CardView
-    android:layout_width="220dp"
+    android:layout_width="260dp"
     android:layout_height="200dp"
-    android:layout_margin="5dp"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
     app:cardMaxElevation="10dp"
     android:layout_gravity="right"
     app:cardPreventCornerOverlap="true"
+    android:layout_marginTop="5dp"
+    android:layout_marginRight="5dp"
     app:cardUseCompatPadding="true"
     android:layout_alignParentRight="true">
 
@@ -61,7 +79,6 @@
             android:textSize="15sp"
             android:textStyle="bold"/>
 
-        <!--ImageVIew to display our Course Image-->
         <ImageView
             android:id="@+id/idImage"
             android:layout_width="match_parent"
@@ -69,8 +86,6 @@
             android:layout_below="@id/idTitle"
             android:contentDescription="@string/app_name"/>
 
-        <!--Text VIew to display COurse Rating-->
-        <!--Image used in present in drawable folder-->
         <TextView
             android:id="@+id/idDesc"
             android:layout_width="match_parent"

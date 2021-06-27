@@ -44,7 +44,6 @@ class EventsFragment: Fragment() {
     }
 
 
-    //@RequiresApi(Build.VERSION_CODES.N)
     @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

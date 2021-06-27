@@ -59,6 +59,13 @@ class FirestoreSetup {
                         val checkUpdates = db.betsCompetitionDao().findByObjectId(document.id)
                         if (checkUpdates != null) {
                             // Update
+                            db.betsCompetitionDao().updateBetsCompetitions(
+                                BetsCompetition(
+                                checkUpdates.id,
+                                document.id,
+                                document.data["competition"].toString()
+                            )
+                            )
                         } else {
                             db.betsCompetitionDao().insertAll(
                                 BetsCompetition(
@@ -87,6 +94,15 @@ class FirestoreSetup {
                         val checkUpdates = db.betsTeamsDao().findByObjectId(document.id)
                         if (checkUpdates != null) {
                             // Update
+                            db.betsTeamsDao().updateBetsTeams(
+                                BetsTeams(
+                                checkUpdates.id,
+                                document.id,
+                                document.data["competition"].toString(),
+                                document.data["team"].toString(),
+                                document.data["odd"].toString()
+                            )
+                            )
                         } else {
                             db.betsTeamsDao().insertAll(
                                 BetsTeams(
@@ -117,6 +133,15 @@ class FirestoreSetup {
                         val checkUpdates = db.betsPlayersDao().findByObjectId(document.id)
                         if (checkUpdates != null) {
                             // Update
+                            db.betsPlayersDao().updateBetsPlayers(
+                                BetsPlayers(
+                                checkUpdates.id,
+                                document.id,
+                                document.data["competition"].toString(),
+                                document.data["player"].toString(),
+                                document.data["odd"].toString(),
+                            )
+                            )
                         } else {
                             db.betsPlayersDao().insertAll(
                                 BetsPlayers(
@@ -184,6 +209,14 @@ class FirestoreSetup {
                         val checkUpdates = db.eventsDao().findByObjectId(document.id)
                         if (checkUpdates != null) {
                             // Update
+                            db.eventsDao().updateEvents(Events(
+                                checkUpdates.id,
+                                document.id,
+                                document.data["event_day"].toString(),
+                                document.data["event_desc"].toString(),
+                                document.data["title"].toString(),
+                                document.data["image"].toString()
+                            ))
                         } else {
                             db.eventsDao().insertAll(
                                 Events(
@@ -191,7 +224,6 @@ class FirestoreSetup {
                                     document.id,
                                     document.data["event_day"].toString(),
                                     document.data["event_desc"].toString(),
-                                    document.data["simple_date"].toString(),
                                     document.data["title"].toString(),
                                     document.data["image"].toString()
                                 )

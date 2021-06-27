@@ -1,9 +1,6 @@
 package com.ipca.formulaworld.ui.calendar
 
-import android.R
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ipca.formulaworld.model.Events
-import java.net.URL
 
 
 class EventsAdapter(var values: MutableList<Events>) :
@@ -40,17 +36,52 @@ class EventsAdapter(var values: MutableList<Events>) :
             val image = itemView.findViewById(com.ipca.formulaworld.R.id.idImage) as ImageView?
             val title = itemView.findViewById(com.ipca.formulaworld.R.id.idTitle) as TextView
             val desc = itemView.findViewById(com.ipca.formulaworld.R.id.idDesc) as TextView
-            val date = itemView.findViewById(com.ipca.formulaworld.R.id.date) as TextView
+            val dateDay = itemView.findViewById(com.ipca.formulaworld.R.id.dateDay) as TextView
+            val dateMoth = itemView.findViewById(com.ipca.formulaworld.R.id.dateMoth) as TextView
 
-            //courseIV = bet.image
+            val lstValues: List<String> = event.eventDay.split("−").map { it -> it.trim() }
+
             title.text = event.title
             desc.text = event.eventDesc
-            date.text = event.simpleDate
-            /*
-            val url = URL(event.image)
-            val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
-
-             */
+            dateDay.text = lstValues[0]
+            when (lstValues[1]) {
+                1.toString() -> {
+                    dateMoth.text = "Jan"
+                }
+                2.toString() -> {
+                    dateMoth.text = "Fev"
+                }
+                3.toString() -> {
+                    dateMoth.text = "Mar"
+                }
+                4.toString() -> {
+                    dateMoth.text = "Abr"
+                }
+                5.toString() -> {
+                    dateMoth.text = "Mai"
+                }
+                6.toString() -> {
+                    dateMoth.text = "Jun"
+                }
+                7.toString() -> {
+                    dateMoth.text = "Jul"
+                }
+                8.toString() -> {
+                    dateMoth.text = "Ago"
+                }
+                9.toString() -> {
+                    dateMoth.text = "Set"
+                }
+                10.toString() -> {
+                    dateMoth.text = "Out"
+                }
+                11.toString() -> {
+                    dateMoth.text = "Nov"
+                }
+                12.toString() -> {
+                    dateMoth.text = "Dez"
+                }
+            }
 
             image!!.setImageBitmap(event.image2)
         }

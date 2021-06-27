@@ -14,21 +14,9 @@ data class Events(
     @ColumnInfo(name = "object_id") val objectId: String,
     @ColumnInfo(name = "eventDay") val eventDay: String,
     @ColumnInfo(name = "eventDesc") val eventDesc: String,
-    @ColumnInfo(name = "simpleDate") val simpleDate: String,
     @ColumnInfo(name = "title") val title: String,
     @ColumnInfo(name = "image") val image: String
     ) {
     @Ignore
     var image2: Bitmap? = null
 }
-
-/*
-@Entity(tableName = "calendar_table")
-data class calendar(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "title") val title: String,
-    @ColumnInfo(name = "inform") val inform: String,
-    @ColumnInfo(name = "created") val created: Date,
-    @ColumnInfo(name = "eventDay") val eventDate: Date)
-
- */

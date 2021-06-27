@@ -3,6 +3,8 @@ package com.ipca.formulaworld.ui.bets
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -15,6 +17,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.ipca.formulaworld.R
+import com.ipca.formulaworld.ui.home.HomeFragment
 import java.math.RoundingMode
 
 
@@ -41,6 +44,7 @@ class PlaceBets : Fragment() {
     ): View? {
         team = arguments?.getString("name")
         odd = arguments?.getString("odd")
+        val handler = Handler(Looper.getMainLooper())
 
 
         val root = inflater.inflate(R.layout.fragment_bets_place, container, false)
@@ -55,10 +59,12 @@ class PlaceBets : Fragment() {
             {
                 Toast.makeText(getActivity()?.getBaseContext(),"Aposta efectuada com sucesso", Toast.LENGTH_LONG).show()
                 balance = (balance.toString().toFloat() - valueBet).toString()
-                val transaction: FragmentTransaction = this.parentFragmentManager.beginTransaction()
-                val fragmentTwo = BetsCompetitionFragment()
-                transaction.replace(R.id.fragment_placeholder, fragmentTwo)
-                transaction.commit()
+                handler.postDelayed({
+                    val transaction: FragmentTransaction = this.parentFragmentManager.beginTransaction()
+                    val fragmentTwo = HomeFragment()
+                    transaction.replace(R.id.fragment_placeholder, fragmentTwo)
+                    transaction.commit()
+                }, 1000)
             }
         }
 

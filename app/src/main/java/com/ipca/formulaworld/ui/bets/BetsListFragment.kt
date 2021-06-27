@@ -60,7 +60,6 @@ class BetsListFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>,
                                         view: View, position: Int, id: Long) {
 
-                //val bundle = Bundle()
                 bundle.putString("competition", inputText)
 
                 showListTeams()
