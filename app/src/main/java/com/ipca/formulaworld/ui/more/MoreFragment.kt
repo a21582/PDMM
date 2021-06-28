@@ -10,7 +10,6 @@ import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.ipca.formulaworld.MainActivity
-import com.ipca.formulaworld.MapActivity
 import com.ipca.formulaworld.MenuOption
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.ui.Map.MapFragment
