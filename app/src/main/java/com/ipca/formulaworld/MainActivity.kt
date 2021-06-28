@@ -5,6 +5,7 @@ import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.MenuItem
@@ -13,9 +14,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.ActionBar.LayoutParams
 import androidx.fragment.app.FragmentTransaction
 import androidx.room.Room
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
 import com.google.firebase.ktx.Firebase
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.ui.bets.BetsCompetitionFragment
@@ -100,6 +104,13 @@ class MainActivity : AppCompatActivity() {
 //                startActivity(intent)
 //                finish()
 //        }
+        FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener(
+            this
+        ) { instanceIdResult: InstanceIdResult ->
+            val newToken = instanceIdResult.token
+            Log.e("newToken", newToken)
+        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -111,6 +122,9 @@ class MainActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+
+
+
 
     private fun openHomeFragment() {
         navigationView.menu.findItem(R.id.navigation_home).isChecked = true
@@ -175,4 +189,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, SignInActivity::class.java))
         }
     }
+
+
 }
