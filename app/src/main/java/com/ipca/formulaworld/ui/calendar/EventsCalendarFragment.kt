@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.ipca.formulaworld.MainActivity
 import com.ipca.formulaworld.ui.bets.BetsPlayersListFragment
 import com.ipca.formulaworld.ui.bets.BetsTeamListFragment
 
@@ -31,6 +32,11 @@ class EventsCalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Fragment title
+        activity?.setTitle(com.ipca.formulaworld.R.string.calendar)
+
+        // Show back button
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // Tab buttons click events (switch between lists)
         eventsButton = view.findViewById<Button>(com.ipca.formulaworld.R.id.events_button)

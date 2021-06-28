@@ -27,7 +27,7 @@ class MoreArrayAdapter(context: Context, list: MutableList<MenuOption>) : ArrayA
             view = convertView
         }
         else {
-            view = LayoutInflater.from(context).inflate(R.layout.list_item_2,parent, false)
+            view = LayoutInflater.from(context).inflate(R.layout.list_item_menu,parent, false)
             view.tag = MyViewHolder(view)
         }
 
@@ -42,7 +42,7 @@ class MoreArrayAdapter(context: Context, list: MutableList<MenuOption>) : ArrayA
     }
 
     private class MyViewHolder(view: View?) {
-        val title = view?.findViewById<TextView>(R.id.list_item_2_title)
-        val image = view?.findViewById<ImageView>(R.id.list_item_2_photo)
+        val title = view?.findViewById<TextView>(R.id.list_item_menu_title)
+        val image = view?.findViewById<ImageView>(R.id.list_item_menu_photo)
     }
 }

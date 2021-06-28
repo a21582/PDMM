@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.ktx.Firebase
+import com.ipca.formulaworld.MainActivity
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.SignInActivity
 import com.ipca.formulaworld.database.MyDatabase
@@ -34,7 +35,6 @@ class BetsCompetitionFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
 
-    val values = mutableListOf<BetsCompetition>()
     private lateinit var mAdapter: BetsCompetitionAdapter
 
     private val db by lazy {
@@ -80,7 +80,7 @@ class BetsCompetitionFragment : Fragment() {
         val transaction: FragmentTransaction = this.parentFragmentManager.beginTransaction()
         val fragmentTwo = BetsListFragment()
         fragmentTwo.arguments = bundle
-        transaction.replace(com.ipca.formulaworld.R.id.fragment_placeholder, fragmentTwo)
+        transaction.replace(R.id.fragment_placeholder, fragmentTwo).addToBackStack(null)
         transaction.commit()
 
     }
@@ -90,7 +90,11 @@ class BetsCompetitionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Fragment title
         activity?.setTitle(R.string.title_bets)
+
+        // Show back button
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         val recyclerView = view.findViewById<RecyclerView>(com.ipca.formulaworld.R.id.userlist)
 
@@ -102,6 +106,8 @@ class BetsCompetitionFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerView.layoutManager = linearLayoutManager
+
+        val values = mutableListOf<BetsCompetition>()
 
         GlobalScope.launch {
             // Atualiza lista de competições

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.ipca.formulaworld.MainActivity
 import com.ipca.formulaworld.MapActivity
 import com.ipca.formulaworld.MenuOption
 import com.ipca.formulaworld.R
@@ -33,7 +34,11 @@ class MoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Fragment title
         activity?.setTitle(R.string.title_more)
+
+        // Remove back button
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
 //        val recyclerView = view.findViewById<RecyclerView>(R.id.main_recyclerview)
 

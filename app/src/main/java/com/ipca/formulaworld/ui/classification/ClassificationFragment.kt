@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.ipca.formulaworld.MainActivity
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.model.Pilot
@@ -59,7 +60,11 @@ class ClassificationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Fragment title
         activity?.setTitle(R.string.title_classification)
+
+        // Show back button
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // List divider
         val itemDecoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)

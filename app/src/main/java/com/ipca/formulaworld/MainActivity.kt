@@ -1,9 +1,7 @@
 package com.ipca.formulaworld
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
-import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -48,12 +46,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navigationView = findViewById(R.id.nav_view)
-        val bar = supportActionBar
-//        bar?.setDisplayHomeAsUpEnabled(true)
-
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-        }
 
         // Firestore
 
@@ -77,48 +69,38 @@ class MainActivity : AppCompatActivity() {
 
         openHomeFragment()
 
-        // Check if the user is signed in
-        val user = auth.currentUser
-
-//        if (user != null) {
-            navigationView.setOnNavigationItemSelectedListener { item ->
-                when(item.itemId) {
-                    R.id.navigation_home -> {
-                        openHomeFragment()
-                        true
-                    }
-                    R.id.navigation_categories -> {
-                        openCategoriesFragment()
-                        true
-                    }
-                    R.id.navigation_bets -> {
-                        openBetsFragment()
-                        true
-                    }
-                    R.id.navigation_more -> {
-                        openMoreFragment()
-                        true
-                    }
-                    R.id.navigation_user -> {
-                        openUserFragment()
-                        true
-                    }
-                    else -> super.onOptionsItemSelected(item)
+        navigationView.setOnNavigationItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.navigation_home -> {
+                    openHomeFragment()
+                    true
                 }
+                R.id.navigation_categories -> {
+                    openCategoriesFragment()
+                    true
+                }
+                R.id.navigation_bets -> {
+                    openBetsFragment()
+                    true
+                }
+                R.id.navigation_more -> {
+                    openMoreFragment()
+                    true
+                }
+                R.id.navigation_user -> {
+                    openUserFragment()
+                    true
+                }
+                else -> super.onOptionsItemSelected(item)
             }
-//        } else {
-//                // Redirect to SignIn
-//                val intent = Intent(this@MainActivity, SignInActivity::class.java)
-//                startActivity(intent)
-//                finish()
-//        }
+        }
+
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener(
             this
         ) { instanceIdResult: InstanceIdResult ->
             val newToken = instanceIdResult.token
             Log.e("newToken", newToken)
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -131,14 +113,11 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-
-
-
     private fun openHomeFragment() {
         navigationView.menu.findItem(R.id.navigation_home).isChecked = true
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, NewsFragment()).addToBackStack(null)
+        ft.replace(R.id.fragment_placeholder, NewsFragment())
         ft.commit()
     }
 
@@ -146,7 +125,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.menu.findItem(R.id.navigation_categories).isChecked = true
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, CategoriesFragment()).addToBackStack(null)
+        ft.replace(R.id.fragment_placeholder, CategoriesFragment())
         ft.commit()
     }
 
@@ -154,7 +133,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.menu.findItem(R.id.navigation_bets).isChecked = true
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, BetsCompetitionFragment()).addToBackStack(null)
+        ft.replace(R.id.fragment_placeholder, BetsCompetitionFragment())
         ft.commit()
     }
 
@@ -162,7 +141,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.menu.findItem(R.id.navigation_more).isChecked = true
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, MoreFragment()).addToBackStack(null)
+        ft.replace(R.id.fragment_placeholder, MoreFragment())
         ft.commit()
     }
 
@@ -197,6 +176,4 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, SignInActivity::class.java))
         }
     }
-
-
 }

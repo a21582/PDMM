@@ -12,6 +12,7 @@ import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.room.Room
+import com.ipca.formulaworld.MainActivity
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.model.BetsCompetition
 
@@ -43,7 +44,11 @@ class BetsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Fragment title
         activity?.setTitle(com.ipca.formulaworld.R.string.title_bets)
+
+        // Show back button
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val spinner = view.findViewById<Spinner>(com.ipca.formulaworld.R.id.spinner)
         if (spinner != null) {
