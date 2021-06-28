@@ -69,48 +69,38 @@ class MainActivity : AppCompatActivity() {
 
         openHomeFragment()
 
-        // Check if the user is signed in
-        val user = auth.currentUser
-
-//        if (user != null) {
-            navigationView.setOnNavigationItemSelectedListener { item ->
-                when(item.itemId) {
-                    R.id.navigation_home -> {
-                        openHomeFragment()
-                        true
-                    }
-                    R.id.navigation_categories -> {
-                        openCategoriesFragment()
-                        true
-                    }
-                    R.id.navigation_bets -> {
-                        openBetsFragment()
-                        true
-                    }
-                    R.id.navigation_more -> {
-                        openMoreFragment()
-                        true
-                    }
-                    R.id.navigation_user -> {
-                        openUserFragment()
-                        true
-                    }
-                    else -> super.onOptionsItemSelected(item)
+        navigationView.setOnNavigationItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.navigation_home -> {
+                    openHomeFragment()
+                    true
                 }
+                R.id.navigation_categories -> {
+                    openCategoriesFragment()
+                    true
+                }
+                R.id.navigation_bets -> {
+                    openBetsFragment()
+                    true
+                }
+                R.id.navigation_more -> {
+                    openMoreFragment()
+                    true
+                }
+                R.id.navigation_user -> {
+                    openUserFragment()
+                    true
+                }
+                else -> super.onOptionsItemSelected(item)
             }
-//        } else {
-//                // Redirect to SignIn
-//                val intent = Intent(this@MainActivity, SignInActivity::class.java)
-//                startActivity(intent)
-//                finish()
-//        }
+        }
+
         FirebaseInstanceId.getInstance().instanceId.addOnSuccessListener(
             this
         ) { instanceIdResult: InstanceIdResult ->
             val newToken = instanceIdResult.token
             Log.e("newToken", newToken)
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -122,9 +112,6 @@ class MainActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
-
-
-
 
     private fun openHomeFragment() {
         navigationView.menu.findItem(R.id.navigation_home).isChecked = true
@@ -189,6 +176,4 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, SignInActivity::class.java))
         }
     }
-
-
 }
