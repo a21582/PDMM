@@ -33,7 +33,6 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var vatEditText: EditText
     private lateinit var phoneEditText: EditText
     private lateinit var emailEditText: TextView
-    private lateinit var passwordEditText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +61,6 @@ class ProfileActivity : AppCompatActivity() {
         vatEditText = findViewById(R.id.profile_VatEditText)
         phoneEditText = findViewById(R.id.profile_phoneEditText)
         emailEditText = findViewById(R.id.profile_emailTextView)
-        passwordEditText = findViewById(R.id.profile_passwordEditText)
 
         firstNameEditText.setText(firstName)
         lastNameEditText.setText(lastName)

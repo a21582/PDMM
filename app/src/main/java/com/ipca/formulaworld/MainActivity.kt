@@ -54,8 +54,8 @@ class MainActivity : AppCompatActivity() {
         // Firestore
 
         if(isNetworkAvailable(this)) {
-        val firestoreSetup = FirestoreSetup(db);
-        firestoreSetup.syncAll(db)
+            val firestoreSetup = FirestoreSetup(db);
+            firestoreSetup.syncAll(db)
         }
 
         auth = Firebase.auth
@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
 //                startActivity(intent)
 //                finish()
 //        }
-        }
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(item.itemId == android.R.id.home) {
@@ -161,7 +161,24 @@ class MainActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
 
         if (currentUser != null) {
-            startActivity(Intent(this, ProfileActivity::class.java))
+
+            val intent = Intent(this, ProfileActivity::class.java)
+
+            val sp = com.ipca.formulaworld.utils.getSharedPreferences(applicationContext)
+
+            val firstName = sp.getString("firstName", "")
+            val lastName = sp.getString("lastName", "")
+            val phone = sp.getString("phone", "")
+            val vat = sp.getString("vat", "")
+            val email = sp.getString("email", "")
+
+            intent.putExtra("firstName", firstName)
+            intent.putExtra("lastName", lastName)
+            intent.putExtra("phone", phone)
+            intent.putExtra("vat", vat)
+            intent.putExtra("email", email)
+
+            startActivity(intent)
         } else {
             startActivity(Intent(this, SignInActivity::class.java))
         }
