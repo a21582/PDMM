@@ -87,7 +87,7 @@ class NewsFragment : Fragment() {
                     Log.d("ClickNews", "Teste2")
 
                     val ft: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
-                    ft?.replace(R.id.fragment_placeholder, DetailsFragment.newInstance(it.title, it.body))?.addToBackStack(null)
+                    ft?.replace(R.id.fragment_placeholder, DetailsFragment.newInstance(it.title, it.body, it.photo))?.addToBackStack(null)
                     ft?.commit()
                 }
                 newsRecyclerView.adapter = newsAdapter
