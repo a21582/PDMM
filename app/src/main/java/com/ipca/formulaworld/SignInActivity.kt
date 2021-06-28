@@ -276,6 +276,49 @@ class SignInActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     val user = auth.currentUser
+                    val uId = user?.uid
+                    val email = user?.email
+
+                    val sp = getSharedPreferences(this.applicationContext)
+
+                    sp.edit()
+                        .putString("uId", uId)
+                        .putString("email", email)
+                        .apply()
+
+                    Log.d("FirestoreUserUid", uId.toString())
+
+                    val firestoreDb = Firebase.firestore
+
+                    firestoreDb.collection("users")
+                        .whereEqualTo("uId", uId)
+                        .get()
+                        .addOnSuccessListener {
+                            if (!it.isEmpty) {
+                                val firstName = it.documents.first()["firstName"].toString()
+                                val lastName = it.documents.first()["lastName"].toString()
+                                val phone = it.documents.first()["phone"].toString()
+                                val vat = it.documents.first()["vat"].toString()
+
+                                Log.d("FirestoreUser", firstName)
+                                // Store user data in Shared Preferences
+                                sp.edit()
+                                    .putString("firstName", firstName)
+                                    .putString("lastName", lastName)
+                                    .putString("phone", phone)
+                                    .putString("vat", vat)
+                                    .apply()
+
+                                /* Consider using apply() instead; commit writes its data to persistent storage immediately,
+                        whereas apply will handle it in the background */
+
+                                Log.d("IntentUser", firstName)
+
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
                     updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.

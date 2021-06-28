@@ -84,6 +84,10 @@ class ProfileActivity : AppCompatActivity() {
             val googleSignInClient = GoogleSignIn.getClient(this, gso)
             googleSignInClient.signOut()
 
+            // Clear shared preferences
+            val sp = getSharedPreferences(this.applicationContext)
+            sp.edit().clear().apply()
+
 //            val intent = Intent(activity, SignInActivity::class.java)
 //            startActivity(intent)
             finish()
