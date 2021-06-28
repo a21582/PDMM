@@ -1,10 +1,18 @@
 package com.ipca.formulaworld
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
+import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.util.Log
+import android.util.TypedValue
+import android.view.Gravity
+import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.ActionBar.LayoutParams
 import androidx.fragment.app.FragmentTransaction
 import androidx.room.Room
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -16,6 +24,7 @@ import com.ipca.formulaworld.ui.bets.BetsCompetitionFragment
 import com.ipca.formulaworld.ui.categories.CategoriesFragment
 import com.ipca.formulaworld.ui.more.MoreFragment
 import com.ipca.formulaworld.ui.news.NewsFragment
+import com.ipca.formulaworld.utils.isNetworkAvailable
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,8 +46,10 @@ class MainActivity : AppCompatActivity() {
         navigationView = findViewById(R.id.nav_view)
         // Firestore
 
+        if(isNetworkAvailable(this)) {
         val firestoreSetup = FirestoreSetup(db);
         firestoreSetup.syncAll(db)
+        }
 
         auth = Firebase.auth
 
