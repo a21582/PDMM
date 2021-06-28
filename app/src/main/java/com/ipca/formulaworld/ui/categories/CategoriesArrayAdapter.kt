@@ -27,7 +27,7 @@ class CategoriesArrayAdapter(context: Context, list: MutableList<MenuOption>) : 
             view = convertView
         }
         else {
-            view = LayoutInflater.from(context).inflate(R.layout.list_item_4,parent, false)
+            view = LayoutInflater.from(context).inflate(R.layout.list_item_menu,parent, false)
             view.tag = MyViewHolder(view)
         }
 
@@ -42,7 +42,7 @@ class CategoriesArrayAdapter(context: Context, list: MutableList<MenuOption>) : 
     }
 
     private class MyViewHolder(view: View?) {
-        val title = view?.findViewById<TextView>(R.id.list_item_4_title)
-        val image = view?.findViewById<ImageView>(R.id.list_item_4_photo)
+        val title = view?.findViewById<TextView>(R.id.list_item_menu_title)
+        val image = view?.findViewById<ImageView>(R.id.list_item_menu_photo)
     }
 }
