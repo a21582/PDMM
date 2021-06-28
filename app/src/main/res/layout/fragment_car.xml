@@ -8,23 +8,7 @@
     android:background="@color/alice_blue"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/car_buttons"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginBottom="15dp">
 
-        <Button
-            android:id="@+id/classification_cars_button"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:backgroundTint="@color/tab_button_background_color"
-            android:textColor="@color/tab_button_text_color"
-            android:text="@string/cars"/>
-
-
-    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
