@@ -16,6 +16,7 @@ import androidx.room.Room
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.model.Car
+import com.ipca.formulaworld.utils.isNetworkAvailable
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.URL
@@ -79,11 +80,14 @@ class CarFragment : Fragment() {
             val carsValues = mutableListOf<Car>()
             val cars = db?.carDao()?.getAllOrderByCar()
             cars?.forEach {
-                Log.d("Pilot", it.name)
-                val url = URL(it.photo)
-                val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+                activity?.let { it1 ->
+                    if (isNetworkAvailable(it1.applicationContext)) {
+                        val url = URL(it.photo)
+                        val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
 
-                it.image = bmp
+                        it.image = bmp
+                    }
+                }
 
                 carsValues.add(it)
             }

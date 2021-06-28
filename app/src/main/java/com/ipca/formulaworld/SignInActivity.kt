@@ -30,6 +30,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.widget.LoginButton
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.ipca.formulaworld.utils.isNetworkAvailable
 
 class SignInActivity : AppCompatActivity() {
 
@@ -124,56 +125,64 @@ class SignInActivity : AppCompatActivity() {
             return
         }
 
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
-            if(task.isSuccessful) {
+        if(isNetworkAvailable(this) ) {
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                if (task.isSuccessful) {
 
-                val sp = getSharedPreferences(this.applicationContext)
+                    val sp = getSharedPreferences(this.applicationContext)
 
-                task.result.user?.uid?.let { uId ->
+                    task.result.user?.uid?.let { uId ->
 
-                    val firestoreDb = Firebase.firestore
+                        val firestoreDb = Firebase.firestore
 
-                    firestoreDb.collection("users")
-                        .whereEqualTo("uId", uId)
-                        .get()
-                        .addOnSuccessListener {
-                            if(!it.isEmpty) {
-                                val firstName = it.documents.first()["firstName"].toString()
-                                val lastName = it.documents.first()["lastName"].toString()
-                                val phone = it.documents.first()["phone"].toString()
-                                val vat = it.documents.first()["vat"].toString()
+                        firestoreDb.collection("users")
+                            .whereEqualTo("uId", uId)
+                            .get()
+                            .addOnSuccessListener {
+                                if (!it.isEmpty) {
+                                    val firstName = it.documents.first()["firstName"].toString()
+                                    val lastName = it.documents.first()["lastName"].toString()
+                                    val phone = it.documents.first()["phone"].toString()
+                                    val vat = it.documents.first()["vat"].toString()
 
-                                Log.d("FirestoreUser", firstName)
-                                // Store user data in Shared Preferences
-                                sp.edit()
-                                    .putString("uId", uId)
-                                    .putString("email", email)
-                                    .putString("firstName", firstName)
-                                    .putString("lastName", lastName)
-                                    .putString("phone", phone)
-                                    .putString("vat", vat)
-                                    .apply()
+                                    Log.d("FirestoreUser", firstName)
+                                    // Store user data in Shared Preferences
+                                    sp.edit()
+                                        .putString("uId", uId)
+                                        .putString("email", email)
+                                        .putString("firstName", firstName)
+                                        .putString("lastName", lastName)
+                                        .putString("phone", phone)
+                                        .putString("vat", vat)
+                                        .apply()
 
-                                /* Consider using apply() instead; commit writes its data to persistent storage immediately,
-                                whereas apply will handle it in the background */
+                                    /* Consider using apply() instead; commit writes its data to persistent storage immediately,
+                            whereas apply will handle it in the background */
 
-                                Log.d("IntentUser", firstName)
+                                    Log.d("IntentUser", firstName)
 
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
-                                finish()
+                                    val intent = Intent(this, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
                             }
-                        }
+                    }
+                } else {
+                    Toast.makeText(this, "Failed to login!", Toast.LENGTH_LONG).show()
                 }
-            } else {
-                Toast.makeText(this, "Failed to login!", Toast.LENGTH_LONG).show()
             }
+        } else {
+            Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show()
         }
     }
 
     private fun googleSignIn() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        if(isNetworkAvailable(this) ) {
+            val signInIntent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+        } else {
+            Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

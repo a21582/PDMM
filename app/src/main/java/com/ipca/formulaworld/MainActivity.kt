@@ -1,10 +1,19 @@
 package com.ipca.formulaworld
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
+import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import android.util.TypedValue
+import android.view.Gravity
+import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.ActionBar.LayoutParams
 import androidx.fragment.app.FragmentTransaction
 import androidx.room.Room
 import com.google.android.gms.tasks.OnCompleteListener
@@ -19,6 +28,7 @@ import com.ipca.formulaworld.ui.bets.BetsCompetitionFragment
 import com.ipca.formulaworld.ui.categories.CategoriesFragment
 import com.ipca.formulaworld.ui.more.MoreFragment
 import com.ipca.formulaworld.ui.news.NewsFragment
+import com.ipca.formulaworld.utils.isNetworkAvailable
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,20 +48,35 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navigationView = findViewById(R.id.nav_view)
+        val bar = supportActionBar
+//        bar?.setDisplayHomeAsUpEnabled(true)
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+        }
+
         // Firestore
 
-        val firestoreSetup = FirestoreSetup(db);
-        firestoreSetup.syncAll(db)
+        if(isNetworkAvailable(this)) {
+            val firestoreSetup = FirestoreSetup(db);
+            firestoreSetup.syncAll(db)
+        }
 
         auth = Firebase.auth
 
         openHomeFragment()
     }
 
+    override fun onBackPressed() {
+        Log.d("BackButton", "Teste")
+        super.onBackPressed()
+    }
+
     override fun onStart() {
         super.onStart()
 
         openHomeFragment()
+
         // Check if the user is signed in
         val user = auth.currentUser
 
@@ -94,6 +119,16 @@ class MainActivity : AppCompatActivity() {
             Log.e("newToken", newToken)
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == android.R.id.home) {
+            Log.d("BackButton", "Teste2")
+            supportFragmentManager.popBackStack()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 
@@ -140,7 +175,24 @@ class MainActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
 
         if (currentUser != null) {
-            startActivity(Intent(this, ProfileActivity::class.java))
+
+            val intent = Intent(this, ProfileActivity::class.java)
+
+            val sp = com.ipca.formulaworld.utils.getSharedPreferences(applicationContext)
+
+            val firstName = sp.getString("firstName", "")
+            val lastName = sp.getString("lastName", "")
+            val phone = sp.getString("phone", "")
+            val vat = sp.getString("vat", "")
+            val email = sp.getString("email", "")
+
+            intent.putExtra("firstName", firstName)
+            intent.putExtra("lastName", lastName)
+            intent.putExtra("phone", phone)
+            intent.putExtra("vat", vat)
+            intent.putExtra("email", email)
+
+            startActivity(intent)
         } else {
             startActivity(Intent(this, SignInActivity::class.java))
         }

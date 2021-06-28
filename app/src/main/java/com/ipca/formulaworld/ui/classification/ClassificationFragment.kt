@@ -19,6 +19,7 @@ import com.ipca.formulaworld.R
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.model.Pilot
 import com.ipca.formulaworld.model.Team
+import com.ipca.formulaworld.utils.isNetworkAvailable
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.URL
@@ -88,11 +89,14 @@ class ClassificationFragment : Fragment() {
             val pilotsValues = mutableListOf<Pilot>()
             val pilots = db?.pilotDao()?.getAllOrderByClassification()
             pilots?.forEach {
-                Log.d("Pilot", it.name)
-                val url = URL(it.photo)
-                val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+                activity?.let { it1 ->
+                    if (isNetworkAvailable(it1.applicationContext)) {
+                        val url = URL(it.photo)
+                        val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
 
-                it.image = bmp
+                        it.image = bmp
+                    }
+                }
 
                 pilotsValues.add(it)
             }
@@ -104,10 +108,15 @@ class ClassificationFragment : Fragment() {
                 Log.d("Team", it.name)
                 val photo = it.photo
                 if(photo != null && photo.isNotEmpty() && photo != "null") {
-                    val url = URL(photo)
-                    val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+                    activity?.let { it1 ->
+                        if (isNetworkAvailable(it1.applicationContext)) {
+                            val url = URL(photo)
+                            val bmp =
+                                BitmapFactory.decodeStream(url.openConnection().getInputStream())
 
-                    it.image = bmp
+                            it.image = bmp
+                        }
+                    }
                 }
 
                 teamsValues.add(it)

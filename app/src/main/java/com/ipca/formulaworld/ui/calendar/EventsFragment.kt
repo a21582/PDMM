@@ -17,6 +17,7 @@ import com.ipca.formulaworld.model.BetsPlayers
 import com.ipca.formulaworld.model.Events
 import com.ipca.formulaworld.ui.bets.BetsPlayerAdapter
 import com.ipca.formulaworld.ui.bets.PlaceBets
+import com.ipca.formulaworld.utils.isNetworkAvailable
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.net.URL
@@ -58,10 +59,15 @@ class EventsFragment: Fragment() {
             // Atualizar lista de pilotos
             val data = db!!.eventsDao().getAll()
             data?.forEach {
-                val url = URL(it.image)
-                val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
+                activity?.let { it1 ->
+                    if(isNetworkAvailable(it1.applicationContext) ) {
+                        val url = URL(it.image)
+                        val bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream())
 
-                it.image2 = bmp
+                        it.image2 = bmp
+                    }
+                }
+
                 values.add(it)
             }
             activity?.runOnUiThread {
