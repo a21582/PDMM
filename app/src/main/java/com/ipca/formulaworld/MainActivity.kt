@@ -44,6 +44,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navigationView = findViewById(R.id.nav_view)
+        val bar = supportActionBar
+//        bar?.setDisplayHomeAsUpEnabled(true)
+
+        supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+        }
+
         // Firestore
 
         if(isNetworkAvailable(this)) {
@@ -56,10 +63,16 @@ class MainActivity : AppCompatActivity() {
         openHomeFragment()
     }
 
+    override fun onBackPressed() {
+        Log.d("BackButton", "Teste")
+        super.onBackPressed()
+    }
+
     override fun onStart() {
         super.onStart()
 
         openHomeFragment()
+
         // Check if the user is signed in
         val user = auth.currentUser
 
@@ -97,7 +110,14 @@ class MainActivity : AppCompatActivity() {
 //        }
         }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == android.R.id.home) {
+            Log.d("BackButton", "Teste2")
+            supportFragmentManager.popBackStack()
+            return true
+        }
 
+        return super.onOptionsItemSelected(item)
     }
 
     private fun openHomeFragment() {
