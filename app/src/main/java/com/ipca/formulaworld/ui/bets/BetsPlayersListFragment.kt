@@ -50,9 +50,8 @@ class BetsPlayersListFragment : Fragment(), BetsPlayerAdapter.OnItemClickListene
         val transaction: FragmentTransaction = this.parentFragmentManager.beginTransaction()
         val fragmentTwo = PlaceBets()
         fragmentTwo.arguments = bundle
-        transaction.replace(com.ipca.formulaworld.R.id.fragment_placeholder, fragmentTwo)
+        transaction.replace(R.id.fragment_placeholder, fragmentTwo)
         transaction.commit()
-
     }
 
     //@RequiresApi(Build.VERSION_CODES.N)

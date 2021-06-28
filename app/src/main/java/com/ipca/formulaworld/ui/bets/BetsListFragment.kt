@@ -1,7 +1,6 @@
 package com.ipca.formulaworld.ui.bets
 
 import android.R
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +39,6 @@ class BetsListFragment : Fragment() {
     }
 
 
-    @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -59,16 +57,13 @@ class BetsListFragment : Fragment() {
                     listOf("Teams", "Players")
                 )
             }
-            adapter!!.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter?.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
-        }
-        spinner.onItemSelectedListener = object :
-            AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>,
-                                        view: View, position: Int, id: Long) {
 
+            spinner.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 bundle.putString("competition", inputText)
-
                 showListTeams()
 
                 when(position) {
@@ -84,7 +79,7 @@ class BetsListFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>) {
             }
         }
-
+        }
     }
 
     fun showListTeams(){

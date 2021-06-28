@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ipca.formulaworld.ui.bets.PlaceBets">
+    tools:context="com.ipca.formulaworld.ui.bets.PlaceBets"
+    android:background="@color/white">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

@@ -16,10 +16,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.ipca.formulaworld.MainActivity
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.ui.home.HomeFragment
 import java.math.RoundingMode
-
 
 class PlaceBets : Fragment() {
     var team: String? = ""
@@ -30,6 +30,7 @@ class PlaceBets : Fragment() {
     var titleGains: String?= "Ganhos Potenciais"
     var valueBet: Float = 0.2F
     private var mContext: Context? = null
+    lateinit var button: Button
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -44,29 +45,10 @@ class PlaceBets : Fragment() {
     ): View? {
         team = arguments?.getString("name")
         odd = arguments?.getString("odd")
-        val handler = Handler(Looper.getMainLooper())
-
 
         val root = inflater.inflate(R.layout.fragment_bets_place, container, false)
 
-        val c = root.context
-        val Button = root.findViewById<Button>(R.id.buttonBet)
-        Button.setOnClickListener{
-            if (valueBet > balance.toString().toFloat()) {
-                Toast.makeText(getActivity()?.getBaseContext(),"Saldo Insufeciente", Toast.LENGTH_LONG).show()
-            }
-            else
-            {
-                Toast.makeText(getActivity()?.getBaseContext(),"Aposta efectuada com sucesso", Toast.LENGTH_LONG).show()
-                balance = (balance.toString().toFloat() - valueBet).toString()
-                handler.postDelayed({
-                    val transaction: FragmentTransaction = this.parentFragmentManager.beginTransaction()
-                    val fragmentTwo = HomeFragment()
-                    transaction.replace(R.id.fragment_placeholder, fragmentTwo)
-                    transaction.commit()
-                }, 1000)
-            }
-        }
+        button = root.findViewById<Button>(R.id.buttonBet)
 
         // Inflate the layout for this fragment
         return root
@@ -75,6 +57,12 @@ class PlaceBets : Fragment() {
     @SuppressLint("WrongConstant")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Fragment title
+        activity?.setTitle(com.ipca.formulaworld.R.string.title_bets)
+
+        // Show back button
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val textViewTeam = view.findViewById<TextView>(R.id.textViewTeam)
         textViewTeam.setText(team)
@@ -99,7 +87,25 @@ class PlaceBets : Fragment() {
 
         val textViewValueGains = view.findViewById<TextView>(com.ipca.formulaworld.R.id.textViewValueGains)
 
+        val handler = Handler(Looper.getMainLooper())
 
+        button.setOnClickListener{
+            if (valueBet > balance.toString().toFloat()) {
+                Toast.makeText(activity?.baseContext,"Saldo Insufeciente", Toast.LENGTH_LONG).show()
+            }
+            else
+            {
+                Toast.makeText(activity?.baseContext,"Aposta efectuada com sucesso", Toast.LENGTH_LONG).show()
+                balance = (balance.toString().toFloat() - valueBet).toString()
+                handler.postDelayed({
+                    activity?.supportFragmentManager?.popBackStack()
+//                    val transaction: FragmentTransaction = this.parentFragmentManager.beginTransaction()
+//                    val fragmentTwo = HomeFragment()
+//                    transaction.replace(R.id.fragment_placeholder, fragmentTwo)
+//                    transaction.commit()
+                }, 1000)
+            }
+        }
 
         editAmount.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {

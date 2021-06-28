@@ -45,13 +45,11 @@ class BetsTeamListFragment : Fragment(), BetsTeamAdapter.OnItemClickListener {
         bundle.putString("name", bet.team)
         bundle.putString("odd", bet.odd)
 
-
         val transaction: FragmentTransaction = this.parentFragmentManager.beginTransaction()
         val fragmentTwo = PlaceBets()
         fragmentTwo.arguments = bundle
-        transaction.replace(com.ipca.formulaworld.R.id.fragment_placeholder, fragmentTwo)
+        transaction.replace(R.id.fragment_placeholder, fragmentTwo)
         transaction.commit()
-
     }
 
     @SuppressLint("WrongConstant")
@@ -68,7 +66,7 @@ class BetsTeamListFragment : Fragment(), BetsTeamAdapter.OnItemClickListener {
 
         GlobalScope.launch {
             // Atualizar lista das equpas
-            val data = db!!.betsTeamsDao().findByCompetitionId(inputText)
+            val data = db?.betsTeamsDao()?.findByCompetitionId(inputText)
             data?.forEach {
                 values.add(it)
             }
