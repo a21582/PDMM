@@ -7,16 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.FragmentTransaction
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.*
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.ipca.formulaworld.ui.Map.MapFragment
-import com.ipca.formulaworld.ui.more.MoreFragment
-import com.ipca.formulaworld.ui.store.StoreFragment
 
 
 class MapActivity : AppCompatActivity() , OnMapReadyCallback{

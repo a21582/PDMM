@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        openHomeFragment()
+        openNewsFragment()
     }
 
     override fun onBackPressed() {
@@ -67,12 +67,12 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        openHomeFragment()
+        openNewsFragment()
 
         navigationView.setOnNavigationItemSelectedListener { item ->
             when(item.itemId) {
                 R.id.navigation_home -> {
-                    openHomeFragment()
+                    openNewsFragment()
                     true
                 }
                 R.id.navigation_categories -> {
@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun openHomeFragment() {
+    private fun openNewsFragment() {
         navigationView.menu.findItem(R.id.navigation_home).isChecked = true
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
