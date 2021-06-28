@@ -16,7 +16,6 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.ipca.formulaworld.ui.Map.MapFragment
 import com.ipca.formulaworld.ui.more.MoreFragment
-import com.ipca.formulaworld.ui.store.StoreFragment
 
 
 class MapActivity : AppCompatActivity() , OnMapReadyCallback{

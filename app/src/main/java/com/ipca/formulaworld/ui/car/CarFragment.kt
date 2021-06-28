@@ -1,13 +1,14 @@
 package com.ipca.formulaworld.ui.car
 
+import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +17,10 @@ import androidx.room.Room
 import com.ipca.formulaworld.MainActivity
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.database.MyDatabase
+import com.ipca.formulaworld.model.BetsCompetition
 import com.ipca.formulaworld.model.Car
+import com.ipca.formulaworld.ui.bets.BetsListFragment
+import com.ipca.formulaworld.ui.details.DetailsFragment
 import com.ipca.formulaworld.utils.isNetworkAvailable
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -48,6 +52,15 @@ class CarFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_car, container, false)
+    }
+
+    @SuppressLint("ResourceType")
+    fun onItemClicked(car: Car) {
+
+        val ft: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
+        ft?.replace(R.id.fragment_placeholder, DetailsFragment.newInstance(car.name, "", car.photo))?.addToBackStack(null)
+        ft?.commit()
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -97,7 +110,7 @@ class CarFragment : Fragment() {
 
 
             activity?.runOnUiThread {
-                carsAdapter = CarArrayAdapter(carsValues)
+                carsAdapter = CarArrayAdapter(carsValues, this@CarFragment)
                 carsRecyclerView.adapter = carsAdapter
 
 
