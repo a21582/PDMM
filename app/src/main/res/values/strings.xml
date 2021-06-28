@@ -28,5 +28,6 @@
     <string name="more_button">More</string>
     <string name="title_user">User</string>
     <string name="sign_out">Sign out</string>
+    <string name="calendar">Calendar</string>
 
 </resources>

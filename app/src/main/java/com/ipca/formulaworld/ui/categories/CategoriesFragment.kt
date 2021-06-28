@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentTransaction
+import com.ipca.formulaworld.MainActivity
 import com.ipca.formulaworld.MenuOption
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.ui.calendar.CalendarFragment
@@ -38,47 +39,43 @@ class CategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Fragment title
         activity?.setTitle(R.string.title_categories)
+
+        // Remove back button
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
         val listView = view.findViewById<ListView>(R.id.categories_listview)
         listView.divider = null;
 
-        val options = mutableListOf<MenuOption>(
-            MenuOption("Classificação", R.drawable.ic_statistics),
-            MenuOption("Carros", R.drawable.ic_racing_car),
-            MenuOption("Pilotos", R.drawable.ic_helmet),
-            MenuOption("Equipas", R.drawable.ic_group),
-            MenuOption("Calendário", R.drawable.ic_calendar),
+        val act = (activity as MainActivity)
+
+        val options = mutableListOf(
+            MenuOption(act.baseContext.resources.getString(R.string.title_classification), R.drawable.ic_statistics),
+            MenuOption(act.baseContext.resources.getString(R.string.cars), R.drawable.ic_racing_car),
+            MenuOption(act.baseContext.resources.getString(R.string.calendar), R.drawable.ic_calendar),
         )
         val adapter = CategoriesArrayAdapter(view.context, options)
         listView.adapter = adapter
 
         listView.setOnItemClickListener { parent, view, position, id ->
-            Log.d("Teste", "Click")
             adapter.getItem(0)
 
             when(position) {
                 0 -> {
                     val ft: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
-                    ft?.replace(R.id.fragment_placeholder, ClassificationFragment())
+                    ft?.replace(R.id.fragment_placeholder, ClassificationFragment())?.addToBackStack(null)
                     ft?.commit()
                 }
                 1 -> {
                     val ft: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
-                    ft?.replace(R.id.fragment_placeholder, CarFragment())
+                    ft?.replace(R.id.fragment_placeholder, CarFragment())?.addToBackStack(null)
                     ft?.commit()
                 }
                 2 -> {
-                    Log.d("Teste", "Pos 0")
-                }
-                3 -> {
-                    Log.d("Teste", "Pos 1")
-                }
-                4 -> {
                     val ft: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
-                    ft?.replace(R.id.fragment_placeholder, EventsCalendarFragment())
+                    ft?.replace(R.id.fragment_placeholder, EventsCalendarFragment())?.addToBackStack(null)
                     ft?.commit()
-                    Log.d("Teste", "Pos 0")
                 }
             }
         }

@@ -1,9 +1,7 @@
 package com.ipca.formulaworld
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
-import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -44,12 +42,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         navigationView = findViewById(R.id.nav_view)
-        val bar = supportActionBar
-//        bar?.setDisplayHomeAsUpEnabled(true)
-
-        supportActionBar?.apply {
-            setDisplayHomeAsUpEnabled(true)
-        }
 
         // Firestore
 
@@ -124,7 +116,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.menu.findItem(R.id.navigation_home).isChecked = true
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, NewsFragment()).addToBackStack(null)
+        ft.replace(R.id.fragment_placeholder, NewsFragment())
         ft.commit()
     }
 
@@ -132,7 +124,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.menu.findItem(R.id.navigation_categories).isChecked = true
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, CategoriesFragment()).addToBackStack(null)
+        ft.replace(R.id.fragment_placeholder, CategoriesFragment())
         ft.commit()
     }
 
@@ -140,7 +132,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.menu.findItem(R.id.navigation_bets).isChecked = true
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, BetsCompetitionFragment()).addToBackStack(null)
+        ft.replace(R.id.fragment_placeholder, BetsCompetitionFragment())
         ft.commit()
     }
 
@@ -148,7 +140,7 @@ class MainActivity : AppCompatActivity() {
         navigationView.menu.findItem(R.id.navigation_more).isChecked = true
 
         val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        ft.replace(R.id.fragment_placeholder, MoreFragment()).addToBackStack(null)
+        ft.replace(R.id.fragment_placeholder, MoreFragment())
         ft.commit()
     }
 

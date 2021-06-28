@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.ipca.formulaworld.MainActivity
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.utils.isNetworkAvailable
 import kotlinx.coroutines.GlobalScope
@@ -32,6 +33,8 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val imageView = activity?.findViewById<ImageView>(R.id.details_image)
         val titleTextView = activity?.findViewById<TextView>(R.id.details_title)

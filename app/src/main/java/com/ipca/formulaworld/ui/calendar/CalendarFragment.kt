@@ -10,6 +10,7 @@ import android.widget.CalendarView.OnDateChangeListener
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.room.Room
+import com.ipca.formulaworld.MainActivity
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.model.Events
@@ -44,6 +45,12 @@ class CalendarFragment : Fragment() {
         val dateDay = view.findViewById(com.ipca.formulaworld.R.id.dateDay) as TextView
         val dateMoth = view.findViewById(com.ipca.formulaworld.R.id.dateMoth) as TextView
         val textViewEventDesc = view.findViewById<TextView>(R.id.eventDesc)
+
+        // Fragment title
+        activity?.setTitle(R.string.calendar)
+
+        // Show back button
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         calendarView = view.findViewById(R.id.calendar)
         calendarView.setOnDateChangeListener(OnDateChangeListener { calendarView: CalendarView, year: Int, month: Int, dayOfMonth: Int ->

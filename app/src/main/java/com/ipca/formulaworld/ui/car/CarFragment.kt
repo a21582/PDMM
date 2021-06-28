@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.ipca.formulaworld.MainActivity
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.model.Car
@@ -28,12 +29,9 @@ import java.net.URL
  * create an instance of this fragment.
  */
 class CarFragment : Fragment() {
-
-
     private lateinit var carsButton: Button
-
     private lateinit var carsRecyclerView: RecyclerView
-
+    private lateinit var carsAdapter: CarArrayAdapter
 
     private val db by lazy {
         activity?.let {
@@ -44,7 +42,6 @@ class CarFragment : Fragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,10 +50,14 @@ class CarFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_car, container, false)
     }
 
-    private lateinit var carsAdapter: CarArrayAdapter
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Fragment title
+        activity?.setTitle(R.string.cars)
+
+        // Show back button
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         // List divider
         val itemDecoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)

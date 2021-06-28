@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import com.ipca.formulaworld.MainActivity
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.database.MyDatabase
 import com.ipca.formulaworld.model.News
@@ -52,6 +53,12 @@ class NewsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Fragment title
+        activity?.setTitle(R.string.title_home)
+
+        // Remove back button
+        (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
         // List divider
         val itemDecoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
         activity?.getDrawable(R.drawable.divider)?.let { itemDecoration.setDrawable(it) }
@@ -84,8 +91,6 @@ class NewsFragment : Fragment() {
 
             activity?.runOnUiThread {
                 newsAdapter = NewsArrayAdapter(newsValues) {
-                    Log.d("ClickNews", "Teste2")
-
                     val ft: FragmentTransaction? = activity?.supportFragmentManager?.beginTransaction()
                     ft?.replace(R.id.fragment_placeholder, DetailsFragment.newInstance(it.title, it.body, it.photo))?.addToBackStack(null)
                     ft?.commit()
