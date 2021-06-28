@@ -94,6 +94,10 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-database:7.2.0'
 
 
+    //push notifications
+    implementation 'com.google.firebase:firebase-messaging:20.2.1'
+
+
 
     // FirebaseUI for Cloud Firestore
     implementation 'com.firebaseui:firebase-ui-firestore:7.2.0'
