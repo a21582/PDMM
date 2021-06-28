@@ -84,7 +84,7 @@ class MapFragment : Fragment(), OnMapReadyCallback{
         }
 
         localization_button.setOnClickListener() {
-            val intent = Intent(activity, MapActivity::class.java)
+            val intent = Intent(activity, MyLocation::class.java)
             startActivity(intent)
         }
         }

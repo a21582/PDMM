@@ -13,6 +13,7 @@ import com.ipca.formulaworld.MapActivity
 import com.ipca.formulaworld.MenuOption
 import com.ipca.formulaworld.R
 import com.ipca.formulaworld.ui.Map.MapFragment
+import com.ipca.formulaworld.ui.Map.MyLocation
 
 /**
  * A simple [Fragment] subclass.
@@ -41,7 +42,7 @@ class MoreFragment : Fragment() {
 
         val options = mutableListOf<MenuOption>(
             MenuOption("Grand Prix Circuits", R.drawable.ic_location),
-            MenuOption("História", R.drawable.ic_history),
+            MenuOption("My Location", R.drawable.ic_baseline_my_location_24),
             MenuOption("Fórum", R.drawable.ic_discussion),
         )
         val adapter = MoreArrayAdapter(view.context, options)
@@ -61,7 +62,9 @@ class MoreFragment : Fragment() {
                     ft?.commit()
                 }
                 1 -> {
-                    Log.d("Teste", "Pos 0")
+
+                    val intent = Intent(activity, MyLocation::class.java)
+                    startActivity(intent)
                 }
                 2 -> {
                     Log.d("Teste", "Pos 0")

@@ -102,15 +102,15 @@ class CarFragment : Fragment() {
 
             }
         }
-        carsButton = view.findViewById<Button>(R.id.classification_cars_button)
+      // carsButton = view.findViewById<Button>(R.id.classification_cars_button)
 
-        showCarsList()
-
-        carsButton.setOnClickListener {
+        //showCarsList()
+        carsRecyclerView.visibility = View.VISIBLE
+       /* carsButton.setOnClickListener {
             if(!carsButton.isSelected) {
                 showCarsList()
             }
-        }
+        } */
 
 
 
