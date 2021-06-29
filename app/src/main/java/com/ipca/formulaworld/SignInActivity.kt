@@ -135,6 +135,11 @@ class SignInActivity : AppCompatActivity() {
 
                         val firestoreDb = Firebase.firestore
 
+                        sp.edit()
+                            .putString("uId", uId)
+                            .putString("email", email)
+                            .apply()
+
                         firestoreDb.collection("users")
                             .whereEqualTo("uId", uId)
                             .get()
@@ -148,8 +153,6 @@ class SignInActivity : AppCompatActivity() {
                                     Log.d("FirestoreUser", firstName)
                                     // Store user data in Shared Preferences
                                     sp.edit()
-                                        .putString("uId", uId)
-                                        .putString("email", email)
                                         .putString("firstName", firstName)
                                         .putString("lastName", lastName)
                                         .putString("phone", phone)
@@ -229,14 +232,54 @@ class SignInActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d("SignInFragment", "signInWithCredential:success")
-//                    val user = mAuth.currentUser
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    val user = auth.currentUser
+                    val uId = user?.uid
+                    val email = user?.email
+
+                    val sp = getSharedPreferences(this.applicationContext)
+
+                    sp.edit()
+                        .putString("uId", uId)
+                        .putString("email", email)
+                        .apply()
+
+                    val firestoreDb = Firebase.firestore
+
+                    firestoreDb.collection("users")
+                        .whereEqualTo("uId", uId)
+                        .get()
+                        .addOnSuccessListener {
+                            if (!it.isEmpty) {
+                                val firstName = it.documents.first()["firstName"].toString()
+                                val lastName = it.documents.first()["lastName"].toString()
+                                val phone = it.documents.first()["phone"].toString()
+                                val vat = it.documents.first()["vat"].toString()
+
+                                Log.d("FirestoreUser", firstName)
+                                // Store user data in Shared Preferences
+                                sp.edit()
+                                    .putString("firstName", firstName)
+                                    .putString("lastName", lastName)
+                                    .putString("phone", phone)
+                                    .putString("vat", vat)
+                                    .apply()
+
+                                /* Consider using apply() instead; commit writes its data to persistent storage immediately,
+                        whereas apply will handle it in the background */
+
+                                Log.d("IntentUser", firstName)
+
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                        }
+                    updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.d("SignInFragment", "signInWithCredential:failure")
+                    Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                    updateUI(null)
                 }
             }
     }
